@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'Portfolio',
+  description = 'Personal playground for projects, writing, and curious artefacts.',
+  page = '',
+} = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'Home', match: ['/'] },
+  { href: '/projects', label: 'Projects', match: ['/projects'] },
+  { href: '/blog', label: 'Blog', match: ['/blog'] },
+  { href: '/artefacts', label: 'Artefacts', match: ['/artefacts'] },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="color-scheme" content="dark light" />
+  </head>
+  <body>
+    <nav>
+      <a href="/" aria-label="Go to homepage" class="tagline">~/{page || 'stack'}$</a>
+      <ul>
+        {navItems.map(({ href, label, match }) => (
+          <li>
+            <a
+              href={href}
+              class={[
+                match.some((route) =>
+                  route === '/'
+                    ? currentPath === '/'
+                    : currentPath.startsWith(route)
+                )
+                  ? 'active'
+                  : '',
+              ].join(' ').trim()}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>Built with Astro · Deployed via GitHub Pages</p>
+      <p>
+        <a href="https://astro.build" target="_blank" rel="noreferrer">Astro Docs</a>
+      </p>
+    </footer>
+  </body>
+</html>

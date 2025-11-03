@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<MainLayout title="Projects · Josh" description="Selected projects and experiments" page="projects">
+  <section>
+    <div class="section-heading">
+      <h2>Projects</h2>
+      <span>A living index of builds and experiments</span>
+    </div>
+    <div class="grid cards">
+      {projects.map(({ id, data }) => (
+        <article class="card" id={id}>
+          <h3>{data.title}</h3>
+          <p>{data.summary}</p>
+          <div class="badge-tray">
+            {data.tech.map((item) => (
+              <span class="badge">{item}</span>
+            ))}
+          </div>
+          {data.links.demo || data.links.source ? (
+            <div class="hero-actions" style="margin-top: 1rem;">
+              {data.links.demo && (
+                <a class="button" href={data.links.demo} target="_blank" rel="noreferrer">Live demo</a>
+              )}
+              {data.links.source && (
+                <a class="button secondary" href={data.links.source} target="_blank" rel="noreferrer">Source</a>
+              )}
+            </div>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

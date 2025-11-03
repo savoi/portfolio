@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const artefacts = (await getCollection('artefacts')).sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
+---
+<MainLayout title="Artefacts · Josh" description="An archive of small, strange, and delightful outputs." page="artefacts">
+  <section>
+    <div class="section-heading">
+      <h2>Artefacts</h2>
+      <span>Side quests, notebooks, loops, and ephemera</span>
+    </div>
+    <div class="grid cards">
+      {artefacts.map(({ id, data }) => (
+        <article class="card" id={id}>
+          <h3>{data.title}</h3>
+          <p>{data.summary}</p>
+          <div class="badge-tray">
+            <span class="badge">{data.type}</span>
+            {data.year && <span class="badge">{data.year}</span>}
+          </div>
+          {data.link && (
+            <div class="hero-actions" style="margin-top: 1rem;">
+              <a class="button secondary" href={data.link} target="_blank" rel="noreferrer">Open</a>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

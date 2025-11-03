@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Portfolio Star</title>
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7f5af0" />
+      <stop offset="100%" stop-color="#2cb67d" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#16161a" />
+  <path d="M32 12l6.18 12.53L52 27.82l-10 9.74 2.36 13.76L32 44.78 19.64 51.32 22 37.56 12 27.82l13.82-3.3L32 12z" fill="url(#gradient)" />
+</svg>

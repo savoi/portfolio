@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+---
+<MainLayout title="Blog · Josh" description="Writing about creative coding, process, and experiments." page="blog">
+  <section>
+    <div class="section-heading">
+      <h2>Blog</h2>
+      <span>Notes from the workshop</span>
+    </div>
+    <div class="grid cards">
+      {posts.map(({ id, data, slug }) => (
+        <article class="card" id={id}>
+          <h3>{data.title}</h3>
+          <p>{data.description}</p>
+          <div class="badge-tray">
+            <span class="badge">{new Date(data.publishDate).toLocaleDateString()}</span>
+            {data.tags.map((tag) => (
+              <span class="badge">#{tag}</span>
+            ))}
+          </div>
+          <div class="hero-actions" style="margin-top: 1rem;">
+            <a class="button" href={`/blog/${slug}`}>Read post</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

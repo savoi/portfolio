@@ -1,0 +1,10 @@
+{
+  "title": "Creative Coding Lab",
+  "summary": "A collection of generative art sketches exploring shaders, perlin noise, and audio-reactive visuals.",
+  "order": 2,
+  "tech": ["Canvas", "p5.js", "Web Audio"],
+  "links": {
+    "demo": "https://creative-coding.example.com",
+    "source": "https://github.com/YOUR_GITHUB_USERNAME/creative-coding-lab"
+  }
+}

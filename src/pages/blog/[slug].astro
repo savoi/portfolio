@@ -1,0 +1,31 @@
+---
+import { getEntryBySlug } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const { slug } = Astro.params;
+const entry = await getEntryBySlug('blog', slug ?? '');
+
+if (!entry) {
+  throw new Error(`Blog post not found for slug: ${slug}`);
+}
+
+const { Content, data } = await entry.render();
+---
+<MainLayout title={`${data.title} · Blog`} description={data.description} page="blog">
+  <article class="card" style="padding: clamp(1.5rem, 3vw, 3rem); gap: 1.5rem;">
+    <header>
+      <p class="tagline">{new Date(data.publishDate).toLocaleDateString()}</p>
+      <h1 style="margin: 0; font-size: clamp(2rem, 3vw, 2.75rem);">{data.title}</h1>
+      {data.tags.length ? (
+        <div class="badge-tray" style="margin-top: 1rem;">
+          {data.tags.map((tag) => (
+            <span class="badge">#{tag}</span>
+          ))}
+        </div>
+      ) : null}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</MainLayout>

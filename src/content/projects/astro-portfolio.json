@@ -1,0 +1,10 @@
+{
+  "title": "Astro Portfolio",
+  "summary": "This site – a content-driven portfolio powered by Astro content collections, ready for GitHub Pages deployment.",
+  "order": 1,
+  "tech": ["Astro", "TypeScript", "GitHub Pages"],
+  "links": {
+    "demo": "https://YOUR_GITHUB_USERNAME.github.io/portfolio",
+    "source": "https://github.com/YOUR_GITHUB_USERNAME/portfolio"
+  }
+}

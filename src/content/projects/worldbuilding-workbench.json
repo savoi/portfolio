@@ -1,0 +1,9 @@
+{
+  "title": "Worldbuilding Workbench",
+  "summary": "A tooling suite that helps storytellers generate timelines, maps, and compendiums for fictional universes.",
+  "order": 3,
+  "tech": ["Svelte", "GraphQL", "D3"],
+  "links": {
+    "source": "https://github.com/YOUR_GITHUB_USERNAME/worldbuilding-workbench"
+  }
+}
