@@ -1,5 +1,5 @@
 ---
-import { getEntryBySlug } from 'astro:content';
+import { getCollection, getEntryBySlug } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
 
 const { slug } = Astro.params;
@@ -9,8 +9,18 @@ if (!entry) {
   throw new Error(`Blog post not found for slug: ${slug}`);
 }
 
-const { Content, data } = await entry.render();
----
+const { Content } = await entry.render();
+const data = entry.data;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.slug },
+    }));
+}
+--- 
 <MainLayout title={`${data.title} · Blog`} description={data.description} page="blog">
   <article class="card" style="padding: clamp(1.5rem, 3vw, 3rem); gap: 1.5rem;">
     <header>
