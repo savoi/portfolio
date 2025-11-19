@@ -2,8 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import PlaceholderLayout from '../layouts/PlaceholderLayout.astro';
 
-const isPlaceholder = import.meta.env.WIP === 1;
-console.log('WIP mode:', isPlaceholder);
+const isPlaceholder = process.env.WIP === '1';
 
 const primaryButton =
   'inline-flex items-center gap-2 rounded-xl border border-button-primary-border bg-button-primary-bg px-5 py-2.5 font-semibold text-button-primary-text shadow-sm transition hover:border-button-primary-hover-border hover:bg-button-primary-hover-bg';
