@@ -17,16 +17,18 @@ export default defineConfig({
       name: 'coming-soon-prune',
       hooks: {
         'astro:build:done': async ({ dir }) => {
-          if (process.env.WIP === '1') {
-            const fs = await import('node:fs/promises');
-            for (const entry of await fs.readdir(dir)) {
-              if (entry !== 'index.html' && entry !== 'favicon.svg') {
-                try {
-                  await fs.rm(new URL(entry + '/', dir), { recursive: true, force: true });
-                } catch {}
-              }
-            }
+          if (process.env.WIP !== '1') return;
+          const fs = await import('node:fs/promises');
+
+          const keep = new Set(['index.html', '_astro', 'assets']);
+
+          for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+            if (keep.has(entry.name) || entry.name.startsWith('favicon')) continue;
+
+            const url = new URL(entry.name + (entry.isDirectory() ? '/' : ''), dir);
+            await fs.rm(url, { recursive: true, force: true });
           }
+          console.log('[WIP] pruned dist, kept:', [...keep].join(', '));
         }
       }
     }
