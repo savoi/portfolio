@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "dev:wip": "WIP=1 astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:wip": "WIP=1 astro build",
     "preview": "astro preview",
     "test": "stylelint 'src/**/*.{css,astro}'"
   },
@@ -29,6 +31,8 @@
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.1",
     "stylelint-gamut": "^1.3.4",

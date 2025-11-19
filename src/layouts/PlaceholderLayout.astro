@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
+import HeaderLogo from '~/components/HeaderLogo.astro';
+const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefers ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
+  </head>
+  <body class="relative min-h-screen bg-mh-bg text-mh-text dark:bg-mh-bg-dark dark:text-mh-text-dark">
+    <div class="pointer-events-none fixed inset-0 -z-10">
+      <NeuroNoiseHero client:load />
+    </div>
+    <main class="flex items-center justify-center min-h-screen">
+      <HeaderLogo url="#" width='clamp(300px, 30vw, 600px)' interactive={false} />
+    </main>
+  </body>
+</html>

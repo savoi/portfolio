@@ -1,26 +1,33 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import PlaceholderLayout from '../layouts/PlaceholderLayout.astro';
+
+const isPlaceholder = import.meta.env.WIP === 1;
+console.log('WIP mode:', isPlaceholder);
 
 const primaryButton =
   'inline-flex items-center gap-2 rounded-xl border border-button-primary-border bg-button-primary-bg px-5 py-2.5 font-semibold text-button-primary-text shadow-sm transition hover:border-button-primary-hover-border hover:bg-button-primary-hover-bg';
 const secondaryButton =
   'inline-flex items-center gap-2 rounded-xl bg-green-50/80 px-5 py-2.5 font-medium text-zinc-800/80 shadow-sm transition hover:border-[#588157]/45 hover:bg-white';
 ---
-<MainLayout title="Josh · Portfolio" page="home">
-  <section class="flex flex-col space-y-6 pb-12 pt-8 justify-center items-center text-center">
-    <span class="inline-flex items-center rounded-full border border-[#a3b18a]/60 bg-green-50/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-zinc-800/80 shadow-sm">
-      Hello, world
-    </span>
-    <h1 class="text-4xl font-semibold leading-tight sm:text-5xl">
-      Shipping delightful things on the web.
-    </h1>
-    <p class="max-w-2xl text-lg">
-      I'm Josh – a developer who explores the intersection of code, design, and storytelling. This hub showcases the experiments,
-      products, blog posts, and odd artefacts I keep tinkering with.
-    </p>
-    <div class="flex flex-wrap gap-4">
-      <a class={primaryButton} href="/projects">View projects</a>
-      <a class={secondaryButton} href="/blog">Read the blog</a>
-    </div>
-  </section>
-</MainLayout>
+{isPlaceholder
+  ? <PlaceholderLayout title="savoi.dev" description="Coming soon." />
+  : <MainLayout title="Josh · Portfolio" page="home">
+      <section class="flex flex-col space-y-6 pb-12 pt-8 justify-center items-center text-center">
+        <span class="inline-flex items-center rounded-full border border-[#a3b18a]/60 bg-green-50/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-zinc-800/80 shadow-sm">
+          Hello, world
+        </span>
+        <h1 class="text-4xl font-semibold leading-tight sm:text-5xl">
+          Shipping delightful things on the web.
+        </h1>
+        <p class="max-w-2xl text-lg">
+          I'm Josh – a developer who explores the intersection of code, design, and storytelling. This hub showcases the experiments,
+          products, blog posts, and odd artefacts I keep tinkering with.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a class={primaryButton} href="/projects">View projects</a>
+          <a class={secondaryButton} href="/blog">Read the blog</a>
+        </div>
+      </section>
+    </MainLayout>
+}

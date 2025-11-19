@@ -35,6 +35,21 @@
   --card-dark: var(--color-mh-surface-dark);
   --card-foreground-dark: var(--color-mh-text-dark);
   --card-border-dark: oklch(1% 0 0deg / 12%);
+
+  /* Fluid header tokens */
+  --header-pad-x: clamp(12px, 3vw, 28px);
+  --header-pad-y: clamp(10px, 1.5vw, 20px);
+  --header-gap: clamp(8px, 2vw, 24px);
+  --logo-w: clamp(128px, 16vw, 240px);
+  --link-fs: clamp(14px, 0.5vw + 12px, 18px);
+  --link-px: clamp(6px, 1.2vw, 12px);
+  --link-py: clamp(4px, 0.8vw, 8px);
+}
+
+.header-logo svg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Subtle light-mode texture (grain + soft vignette) */

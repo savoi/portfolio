@@ -169,7 +169,7 @@ export default function NeuroNoiseHero({
     const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap DPR to 2
     const physicalArea = w * h * dpr * dpr;
 
-    const divisor = 16; // higher => fewer samples (try 20–28)
+    const divisor = 10; // higher => fewer samples (try 20–28)
     const raw = Math.floor(physicalArea / divisor);
 
     const mem = (navigator as any).deviceMemory || 4;

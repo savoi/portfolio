@@ -2,21 +2,31 @@
 import Logo from '../assets/savoi-logo.svg?raw';
 
 export interface Props {
+  interactive?: boolean;
   url?: string;
+  width?: string | number;
 }
 
-const logoClasses = [
-  'block w-[200px] h-auto',
-  'text-[var(--color-mh-text)] hover:text-[var(--color-mh-muted)]',
-  'dark:text-[var(--color-mh-text-dark)] dark:hover:text-[var(--color-mh-muted-dark)]',
-  'transition-colors duration-200 cursor-pointer',
-].join(' ');
+const {
+  interactive = true,
+  url,
+  width = '200px',
+} = Astro.props;
 
-const { url } = Astro.props;
+const logoClasses = [
+  `block w-[${width}] h-auto`,
+  'text-[var(--color-mh-text)]',
+  'dark:text-[var(--color-mh-text-dark)]',
+].join(' ');
+const interactiveClasses = interactive
+  ? 'hover:text-[var(--color-mh-muted)] dark:hover:text-[var(--color-mh-muted-dark)] transition-colors duration-200 cursor-pointer'
+  : 'pointer-events-none cursor-default';
+const widthCss = typeof width === 'number' ? `${width}px` : width;
 ---
 <a 
   href={url || '/'}
   aria-label="savoi.dev"
-  class={logoClasses}
+  class={`${logoClasses} ${interactiveClasses}`}
+  style={`width: ${widthCss}`}
   set:html={Logo}
 />
