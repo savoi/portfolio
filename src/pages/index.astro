@@ -1,98 +1,26 @@
 ---
-import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
-const posts = (await getCollection('blog'))
-  .filter((entry) => !entry.data.draft)
-  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
-  .slice(0, 3);
-const artefacts = (await getCollection('artefacts')).slice(0, 4);
+const primaryButton =
+  'inline-flex items-center gap-2 rounded-xl border border-button-primary-border bg-button-primary-bg px-5 py-2.5 font-semibold text-button-primary-text shadow-sm transition hover:border-button-primary-hover-border hover:bg-button-primary-hover-bg';
+const secondaryButton =
+  'inline-flex items-center gap-2 rounded-xl bg-green-50/80 px-5 py-2.5 font-medium text-zinc-800/80 shadow-sm transition hover:border-[#588157]/45 hover:bg-white';
 ---
 <MainLayout title="Josh · Portfolio" page="home">
-  <section class="hero">
-    <span class="tagline">Hello, world</span>
-    <h1>Shipping delightful things on the web.</h1>
-    <p>
-      I'm Josh – a developer who explores the intersection of code, design, and storytelling.
-      This hub showcases the experiments, products, blog posts, and odd artefacts I keep tinkering with.
+  <section class="flex flex-col space-y-6 pb-12 pt-8 justify-center items-center text-center">
+    <span class="inline-flex items-center rounded-full border border-[#a3b18a]/60 bg-green-50/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-zinc-800/80 shadow-sm">
+      Hello, world
+    </span>
+    <h1 class="text-4xl font-semibold leading-tight sm:text-5xl">
+      Shipping delightful things on the web.
+    </h1>
+    <p class="max-w-2xl text-lg">
+      I'm Josh – a developer who explores the intersection of code, design, and storytelling. This hub showcases the experiments,
+      products, blog posts, and odd artefacts I keep tinkering with.
     </p>
-    <div class="hero-actions">
-      <a class="button" href="/projects">View projects</a>
-      <a class="button secondary" href="/blog">Read the blog</a>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-heading">
-      <h2>Highlighted Projects</h2>
-      <span>{projects.length} featured builds</span>
-    </div>
-    <div class="grid cards">
-      {projects.map(({ id, data }) => (
-        <article class="card" id={`project-${id}`}>
-          <h3>{data.title}</h3>
-          <p>{data.summary}</p>
-          <div class="badge-tray">
-            {data.tech.map((item) => (
-              <span class="badge">{item}</span>
-            ))}
-          </div>
-          <div class="hero-actions" style="margin-top: 1rem; gap: 0.75rem;">
-            {data.links.demo && (
-              <a class="button" href={data.links.demo} target="_blank" rel="noreferrer">Live</a>
-            )}
-            {data.links.source && (
-              <a class="button secondary" href={data.links.source} target="_blank" rel="noreferrer">Source</a>
-            )}
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section>
-    <div class="section-heading">
-      <h2>Latest Writings</h2>
-      <span>{posts.length} fresh posts</span>
-    </div>
-    <div class="grid cards">
-      {posts.map(({ id, data, slug }) => (
-        <article class="card" id={`post-${id}`}>
-          <h3>{data.title}</h3>
-          <p>{data.description}</p>
-          <div class="badge-tray">
-            <span class="badge">{new Date(data.publishDate).toLocaleDateString()}</span>
-          </div>
-          <div class="hero-actions" style="margin-top: 1rem;">
-            <a class="button" href={`/blog/${slug}`}>Read article</a>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section>
-    <div class="section-heading">
-      <h2>Curious Artefacts</h2>
-      <span>{artefacts.length} items</span>
-    </div>
-    <div class="grid cards">
-      {artefacts.map(({ id, data }) => (
-        <article class="card" id={`artefact-${id}`}>
-          <h3>{data.title}</h3>
-          <p>{data.summary}</p>
-          <div class="badge-tray">
-            <span class="badge">{data.type}</span>
-            {data.year && <span class="badge">{data.year}</span>}
-          </div>
-          {data.link && (
-            <div class="hero-actions" style="margin-top: 1rem;">
-              <a class="button secondary" href={data.link} target="_blank" rel="noreferrer">Open</a>
-            </div>
-          )}
-        </article>
-      ))}
+    <div class="flex flex-wrap gap-4">
+      <a class={primaryButton} href="/projects">View projects</a>
+      <a class={secondaryButton} href="/blog">Read the blog</a>
     </div>
   </section>
 </MainLayout>

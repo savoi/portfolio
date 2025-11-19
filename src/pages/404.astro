@@ -1,16 +1,23 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+
+const primaryButton =
+  'inline-flex items-center gap-2 rounded-xl border border-[#588157]/60 bg-[#588157]/15 px-5 py-2.5 font-semibold text-[#344e41] shadow-sm transition hover:border-[#3a5a40] hover:bg-[#588157]/25';
+const secondaryButton =
+  'inline-flex items-center gap-2 rounded-xl border border-[#a3b18a]/60 bg-[#dad7cd]/80 px-5 py-2.5 font-medium text-[#344e41] shadow-sm transition hover:border-[#588157]/45 hover:bg-white';
 ---
 <MainLayout title="404 · Josh" description="Page not found" page="home">
-  <section class="hero" style="padding-top: 3rem;">
-    <span class="tagline">Missing route</span>
-    <h1>There's nothing here... yet.</h1>
-    <p>
+  <section class="space-y-6 pb-12 pt-12">
+    <span class="inline-flex items-center rounded-full border border-[#a3b18a]/60 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-[#3a5a40]">
+      Missing route
+    </span>
+    <h1 class="text-4xl font-semibold text-[#344e41]">There's nothing here... yet.</h1>
+    <p class="max-w-2xl text-lg text-[#3a5a40]">
       The page you were looking for has wandered off. Head back to the homepage or try one of the sections below.
     </p>
-    <div class="hero-actions">
-      <a class="button" href="/">Go home</a>
-      <a class="button secondary" href="/projects">Browse projects</a>
+    <div class="flex flex-wrap gap-4">
+      <a class={primaryButton} href="/">Go home</a>
+      <a class={secondaryButton} href="/projects">Browse projects</a>
     </div>
   </section>
 </MainLayout>

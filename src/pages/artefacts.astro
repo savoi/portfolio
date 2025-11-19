@@ -1,31 +1,60 @@
 ---
 import { getCollection } from 'astro:content';
-import MainLayout from '../layouts/MainLayout.astro';
+import FullWidthHeroLayout from '../layouts/FullWidthHeroLayout.astro';
+import ShaderWrapper from '../components/ShaderWrapper.tsx';
+import Card from '../components/Card.astro';
 
 const artefacts = (await getCollection('artefacts')).sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
+
+const badgeClass =
+  'inline-flex items-center rounded-full bg-green-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#344e41]';
+const secondaryButton =
+  'inline-flex items-center gap-2 rounded-xl border border-[#a3b18a]/60 bg-green-50 px-5 py-2.5 font-medium text-[#344e41] shadow-sm transition hover:border-[#588157]/45 hover:bg-white';
 ---
-<MainLayout title="Artefacts · Josh" description="An archive of small, strange, and delightful outputs." page="artefacts">
-  <section>
-    <div class="section-heading">
-      <h2>Artefacts</h2>
-      <span>Side quests, notebooks, loops, and ephemera</span>
-    </div>
-    <div class="grid cards">
+<FullWidthHeroLayout
+  title="Artefacts · Josh"
+  description="An archive of small, strange, and delightful outputs."
+  page="artefacts"
+  pageBannerText='Odds & Ends'
+  pageHeading="Side quests, notebooks, loops, and ephemera."
+  pageSubheading="Explore the collection of artefacts I've collected over the years."
+>
+  <ShaderWrapper
+    slot="visual"
+    client:load
+    shader="grainGradient"
+    quality='ultra'
+    props={{
+      colors: ["#b09ca7", "#d9ab9b", "#f3bb77", "#ffec70"],
+      colorBack: "#1c1718",
+      softness: 0.85,
+      intensity: 0.9,
+      noise: 0.5,
+      shape: "dots",
+      speed: 0.4,
+      scale: 0.5,
+      rotation: 30
+    }}
+  />
+  <section slot="page-content" class="space-y-6 pt-10">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {artefacts.map(({ id, data }) => (
-        <article class="card" id={id}>
-          <h3>{data.title}</h3>
-          <p>{data.summary}</p>
-          <div class="badge-tray">
-            <span class="badge">{data.type}</span>
-            {data.year && <span class="badge">{data.year}</span>}
+        <Card as="article" id={id}>
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold text-green-50">{data.title}</h3>
+            <p class="text-green-50">{data.summary}</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class={badgeClass}>{data.type}</span>
+            {data.year && <span class={badgeClass}>{data.year}</span>}
           </div>
           {data.link && (
-            <div class="hero-actions" style="margin-top: 1rem;">
-              <a class="button secondary" href={data.link} target="_blank" rel="noreferrer">Open</a>
+            <div class="mt-3">
+              <a class={secondaryButton} href={data.link} target="_blank" rel="noreferrer">Open</a>
             </div>
           )}
-        </article>
+        </Card>
       ))}
     </div>
   </section>
-</MainLayout>
+</FullWidthHeroLayout>

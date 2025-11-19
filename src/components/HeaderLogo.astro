@@ -1,0 +1,22 @@
+---
+import Logo from '../assets/savoi-logo.svg?raw';
+
+export interface Props {
+  url?: string;
+}
+
+const logoClasses = [
+  'block w-[200px] h-auto',
+  'text-[var(--color-mh-text)] hover:text-[var(--color-mh-muted)]',
+  'dark:text-[var(--color-mh-text-dark)] dark:hover:text-[var(--color-mh-muted-dark)]',
+  'transition-colors duration-200 cursor-pointer',
+].join(' ');
+
+const { url } = Astro.props;
+---
+<a 
+  href={url || '/'}
+  aria-label="savoi.dev"
+  class={logoClasses}
+  set:html={Logo}
+/>

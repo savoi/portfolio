@@ -1,9 +1,9 @@
 {
-  "title": "Worldbuilding Workbench",
-  "summary": "A tooling suite that helps storytellers generate timelines, maps, and compendiums for fictional universes.",
+  "title": "Dog Walking Simulator",
+  "summary": "A humorous simulation game where players experience the joys and challenges of being a dog walker in a bustling city.",
   "order": 3,
-  "tech": ["Svelte", "GraphQL", "D3"],
+  "tech": ["Unity", "C#", "Blender", "Photoshop"],
   "links": {
-    "source": "https://github.com/YOUR_GITHUB_USERNAME/worldbuilding-workbench"
+    "source": "https://github.com/savoi/dog-walking-sim"
   }
 }

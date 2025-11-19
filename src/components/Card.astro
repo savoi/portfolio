@@ -1,0 +1,35 @@
+---
+export interface Props {
+  as?: keyof HTMLElementTagNameMap | 'div';
+  id?: string;
+  interactive?: boolean;
+  padding?: string;   // e.g. 'p-7'
+  rounded?: string;   // e.g. 'rounded-[2rem]'
+  class?: string;
+}
+
+const {
+  as = 'div',
+  id,
+  interactive = false,
+  padding = 'p-5',
+  rounded = 'rounded-lg',
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+
+const base = `flex flex-row ${rounded} ${padding}`;
+const palette = "bg-card text-card-foreground border border-card-border";
+const paletteDark = "dark:bg-card-dark dark:text-card-foreground-dark dark:border-card-border-dark";
+
+const inter = interactive ? 'transition-transform duration-200 hover:-translate-y-0.5' : '';
+const classes = [base, palette, paletteDark, inter, className].join(' ');
+const Tag = as as any;
+---
+<Tag id={id} class={classes} {...rest}>
+  <slot name="header" />
+  <div class="space-y-3">
+    <slot />
+  </div>
+  <slot name="footer" />
+</Tag>

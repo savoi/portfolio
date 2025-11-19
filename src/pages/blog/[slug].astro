@@ -20,21 +20,28 @@ export async function getStaticPaths() {
       params: { slug: post.slug },
     }));
 }
---- 
+
+const badgeClass =
+  'inline-flex items-center rounded-full bg-[#588157]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#344e41]';
+const articleShell =
+  'space-y-6 rounded-3xl border border-[#a3b18a]/50 bg-[#dad7cd]/85 p-8 shadow-[0_18px_36px_rgba(52,78,65,0.12)]';
+---
 <MainLayout title={`${data.title} · Blog`} description={data.description} page="blog">
-  <article class="card" style="padding: clamp(1.5rem, 3vw, 3rem); gap: 1.5rem;">
-    <header>
-      <p class="tagline">{new Date(data.publishDate).toLocaleDateString()}</p>
-      <h1 style="margin: 0; font-size: clamp(2rem, 3vw, 2.75rem);">{data.title}</h1>
+  <article class={articleShell}>
+    <header class="space-y-4">
+      <p class="inline-flex text-sm font-semibold uppercase tracking-[0.35em] text-[#3a5a40]">
+        {new Date(data.publishDate).toLocaleDateString()}
+      </p>
+      <h1 class="text-3xl font-semibold text-[#344e41]">{data.title}</h1>
       {data.tags.length ? (
-        <div class="badge-tray" style="margin-top: 1rem;">
+        <div class="flex flex-wrap gap-2">
           {data.tags.map((tag) => (
-            <span class="badge">#{tag}</span>
+            <span class={badgeClass}>#{tag}</span>
           ))}
         </div>
       ) : null}
     </header>
-    <div class="prose">
+    <div class="rich-text">
       <Content />
     </div>
   </article>

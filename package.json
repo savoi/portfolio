@@ -7,9 +7,31 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "stylelint 'src/**/*.{css,astro}'"
   },
   "dependencies": {
-    "astro": "^4.8.6"
+    "@astrojs/react": "^4.4.1",
+    "@paper-design/shaders": "^0.0.62",
+    "@paper-design/shaders-react": "^0.0.62",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "astro": "^5.15.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.553.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "stylelint": "^16.25.0",
+    "stylelint-config-standard": "^39.0.1",
+    "stylelint-gamut": "^1.3.4",
+    "tw-animate-css": "^1.4.0"
   }
 }
