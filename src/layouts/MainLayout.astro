@@ -3,6 +3,7 @@ import '../styles/global.css';
 import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
 import ThemeToggle from '~/components/ThemeToggle';
 import HeaderLogo from '~/components/HeaderLogo.astro';
+import Favicons from '~/components/Favicons.astro';
 
 const {
   title = 'Portfolio',
@@ -53,7 +54,7 @@ const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <Favicons />
     <meta name="color-scheme" content="dark light" />
     <script>
       (() => {

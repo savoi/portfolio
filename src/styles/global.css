@@ -50,6 +50,21 @@
   width: 100%;
   height: auto;
   display: block;
+  overflow: visible;
+}
+
+.logo-shadow-wrap {
+  opacity: 0.85;
+  filter:
+    drop-shadow(0 6px 10px oklch(0% 0 0deg / 35%))
+    drop-shadow(0 18px 28px oklch(0% 0 0deg / 25%));
+}
+
+.dark .logo-shadow-wrap {
+  opacity: 0.85;
+  filter:
+    drop-shadow(0 6px 12px oklch(0% 0 0deg / 55%))
+    drop-shadow(0 20px 34px oklch(0% 0 0deg / 40%));
 }
 
 /* Subtle light-mode texture (grain + soft vignette) */

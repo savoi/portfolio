@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
 import HeaderLogo from '~/components/HeaderLogo.astro';
+import Favicons from '~/components/Favicons.astro';
 const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -12,8 +13,8 @@ const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="color-scheme" content="dark light" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <script>
+    <Favicons />
+    <script is:inline>
       (() => {
         const stored = localStorage.getItem('theme');
         const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -28,7 +29,7 @@ const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
       <NeuroNoiseHero client:load />
     </div>
     <main class="flex items-center justify-center min-h-screen">
-      <HeaderLogo url="#" width='clamp(300px, 30vw, 600px)' interactive={false} />
+      <HeaderLogo url="#" width='clamp(200px, 25vw, 500px)' interactive={false} shadow={true} />
     </main>
   </body>
 </html>

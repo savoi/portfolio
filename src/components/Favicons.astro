@@ -1,0 +1,50 @@
+---
+---
+<!-- Order: media SVGs first, ICO last -->
+<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
+<link id="favicon-current" rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico?v=1" sizes="48x48"/>
+<!-- <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" /> -->
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /> -->
+<meta name="apple-mobile-web-app-title" content="savoi.dev" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Sync favicon to site theme (.dark or data-theme)
+<script define:vars={{ light, dark }}>
+  (() => {
+    const el = document.querySelector('link#favicon-current');
+    if (!el) return;
+
+    const isDark = () => {
+      const html = document.documentElement;
+      const dt = (html.getAttribute('data-theme') || '').toLowerCase();
+      return html.classList.contains('dark') || dt.split(/\s+/).includes('dark');
+    };
+
+    const apply = () => { el.href = isDark() ? dark : light; };
+
+    // Initial after your theme bootstrap runs
+    requestAnimationFrame(apply);
+
+    // Observe theme flips
+    const mo = new MutationObserver(apply);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+
+    // Optional: system changes
+    const mq = window.matchMedia?.('(prefers-color-scheme: dark)');
+    const onMQ = () => apply();
+    mq?.addEventListener?.('change', onMQ);
+
+    // Cross-tab storage key 'theme'
+    const onStorage = (e) => { if (e.key === 'theme') apply(); };
+    window.addEventListener('storage', onStorage);
+
+    // Cleanup (Astro replaces head on nav)
+    window.addEventListener('astro:after-swap', () => {
+      mo.disconnect();
+      mq?.removeEventListener?.('change', onMQ);
+      window.removeEventListener('storage', onStorage);
+    });
+  })();
+</script> -->

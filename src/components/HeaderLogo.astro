@@ -3,12 +3,14 @@ import Logo from '../assets/savoi-logo.svg?raw';
 
 export interface Props {
   interactive?: boolean;
+  shadow?: boolean;
   url?: string;
   width?: string | number;
 }
 
 const {
   interactive = true,
+  shadow = false,
   url,
   width = '200px',
 } = Astro.props;
@@ -21,12 +23,15 @@ const logoClasses = [
 const interactiveClasses = interactive
   ? 'hover:text-[var(--color-mh-muted)] dark:hover:text-[var(--color-mh-muted-dark)] transition-colors duration-200 cursor-pointer'
   : 'pointer-events-none cursor-default';
+const shadowClass = shadow ? 'logo-shadow' : '';
 const widthCss = typeof width === 'number' ? `${width}px` : width;
 ---
-<a 
-  href={url || '/'}
-  aria-label="savoi.dev"
-  class={`${logoClasses} ${interactiveClasses}`}
-  style={`width: ${widthCss}`}
-  set:html={Logo}
-/>
+<div class={shadow ? "logo-shadow-wrap" : undefined} style={`width: ${widthCss}`}>
+  <a 
+    href={url || '/'}
+    aria-label="savoi.dev"
+    class={`${logoClasses} ${interactiveClasses} ${shadowClass}`}
+    style={`width: ${widthCss}`}
+    set:html={Logo}
+  />
+</div>
