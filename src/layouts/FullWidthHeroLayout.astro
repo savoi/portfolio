@@ -1,12 +1,13 @@
 ---
 import MainLayout from './MainLayout.astro';
+import Badge from '../components/Badge.astro';
 
 export interface Props {
   title?: string;
   description?: string;
   page?: string;
   containerClass?: string;
-  pageBannerText?: string;
+  badgeText?: string;
   pageHeading?: string;
   pageSubheading?: string;
 }
@@ -16,12 +17,12 @@ const {
   description = '',
   page = '',
   containerClass = 'mx-auto w-4/5 @container',
-  pageBannerText = 'Welcome!',
+  badgeText = Astro.url.pathname.replace(/^\/|\/$/g, '') || 'Welcome!',
   pageHeading = 'This is a page heading',
   pageSubheading = 'This a the page subheading. Put some longer desdcriptive text here.',
 } = Astro.props as Props;
 
-const hasBanner = !!pageBannerText?.trim();
+const hasBanner = !!badgeText?.trim();
 const hasHeading = !!pageHeading?.trim();
 const hasSubheading = !!pageSubheading?.trim();
 const hasVisual = !!Astro.slots.has('visual');
@@ -30,9 +31,7 @@ const hasVisual = !!Astro.slots.has('visual');
   <section class="w-full pt-12">
     <div class="space-y-4">
       {hasBanner && (
-        <span class="mx-8 inline-flex items-center rounded-full bg-dark-text/90 dark:bg-light-text/90 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-light-text dark:text-dark-text">
-          {pageBannerText}
-        </span>
+        <Badge title={badgeText} />
       )}
       {hasHeading && (
         <h1 class="mx-8 text-4xl font-semibold leading-tight text-dark-text/90 dark:text-light-text sm:text-5xl">
@@ -45,14 +44,14 @@ const hasVisual = !!Astro.slots.has('visual');
         </p>
       )}
       {hasVisual && (
-        <div class="w-full h-[200px] mt-8">
+        <div class="w-full h-[300px] mt-8 relative z-0">
           <slot name="visual" />
         </div>
       )}
     </div>
   </section>
 
-  <div class={containerClass}>
+  <div class=`${containerClass} relative z-10 -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-40`>
     <slot name="page-content"/>
   </div>
 </MainLayout>

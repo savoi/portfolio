@@ -1,0 +1,18 @@
+---
+export interface Props {
+  title?: string;
+  style?: 'hero' | 'card';
+}
+
+const {
+  title = '',
+  style = 'hero',
+} = Astro.props as Props;
+
+const baseClasses = "mx-8 inline-flex items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em]";
+const lightPaletteClasses = "bg-badge/90 text-badge-text shadow-lg/40";
+const darkPaletteClasses = "dark:bg-badge-dark/90 dark:text-badge-text-dark";
+---
+<span class=`${baseClasses} ${lightPaletteClasses} ${darkPaletteClasses}`>
+  {title}
+</span>

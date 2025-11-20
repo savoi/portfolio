@@ -22,19 +22,24 @@
   --button-primary-active-bg: oklch(78% 0.20 50deg);    /* Slightly darker */
   --button-primary-border: transparent;
   --button-primary-hover-border: oklch(80% 0.22 50deg / 40%); /* warm accent with alpha */
-  --card: var(--color-mh-surface);
-  --card-foreground: var(--color-mh-text);
-  --card-border: oklch(0% 0 0deg / 8%);
+  --color-badge: var(--color-mh-bg-dark);
+  --color-badge-text: var(--color-mh-text-dark);
+  --color-card: var(--color-mh-surface);
+  --color-card-foreground: var(--color-mh-text);
+  --color-card-border: oklch(0% 0 0deg / 8%);
 
   /* DARK THEME TOKENS (used via `dark:`) */
   --color-mh-bg-dark: oklch(16% 0.04 300deg);       /* Twilight Black */
   --color-mh-surface-dark: oklch(26% 0.05 300deg);  /* Moonlit Charcoal */
+  --color-mh-surface-dark: oklch(20% 0.03 265deg);
   --color-mh-soft-dark: oklch(36% 0.07 300deg);     /* Deep Violet Gray */
   --color-mh-text-dark: oklch(92% 0.01 300deg);     /* Fog White */
   --color-mh-muted-dark: oklch(78% 0.02 300deg);    /* Soft Fog */
-  --card-dark: var(--color-mh-surface-dark);
-  --card-foreground-dark: var(--color-mh-text-dark);
-  --card-border-dark: oklch(1% 0 0deg / 12%);
+  --color-badge-dark: var(--color-mh-bg);
+  --color-badge-text-dark: var(--color-mh-text);
+  --color-card-dark: var(--color-mh-surface-dark);
+  --color-card-foreground-dark: var(--color-mh-text-dark);
+  --color-card-border-dark: oklch(1% 0 0deg / 12%);
 
   /* Fluid header tokens */
   --header-pad-x: clamp(12px, 3vw, 28px);

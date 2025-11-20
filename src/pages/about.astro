@@ -1,6 +1,5 @@
 ---
 import FullWidthHeroLayout from '../layouts/FullWidthHeroLayout.astro';
-import { Water } from '@paper-design/shaders-react';
 import PortraitSketchSvg from '../assets/portrait-sketch.svg?raw';
 import Card from '../components/Card.astro';
 import ShaderWrapper from '../components/ShaderWrapper.tsx';
@@ -39,7 +38,6 @@ const interests = [
   title="About · Josh"
   description="Get to know the person behind the pixels and code."
   page="about"
-  pageBannerText='Hello!'
   pageHeading="Building at the intersection of code, design, and storytelling."
   pageSubheading={`"I enjoy shaping tactile, expressive experiences for the web—where
                   thoughtful code meets editorial storytelling and playful 
@@ -57,7 +55,7 @@ const interests = [
       waves: 1,
       caustic: 0.4,
       size: 0.15,
-      speed: 0.6,
+      speed: 0.4,
       scale: 3,
       fit: "cover"
     }}
@@ -78,9 +76,9 @@ const interests = [
     </figure>
     <div class="space-y-5 overflow-hidden">
       <div>
-        <h2 class="text-4xl font-semibold text-green-50">A bit about me</h2>
+        <h2 class="text-4xl font-semibold">A bit about me</h2>
       </div>
-      <div class="text-green-100 space-y-4">
+      <div class="space-y-4">
         <p>
           I'm a developer who gets excited about the spaces where technology meets human creativity. Whether I'm crafting interactive
           experiences, writing about process, or tinkering with generative systems, I'm always looking for ways to make the web more
