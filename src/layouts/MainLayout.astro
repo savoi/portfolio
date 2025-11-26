@@ -1,9 +1,9 @@
 ---
 import '../styles/global.css';
 import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
-import ThemeToggle from '~/components/ThemeToggle';
 import HeaderLogo from '~/components/HeaderLogo.astro';
 import Favicons from '~/components/Favicons.astro';
+import CandleThemeToggle from '~/components/CandleThemeToggle';
 
 const {
   title = 'Portfolio',
@@ -44,7 +44,6 @@ const linkIdleDark = 'dark:hover:bg-mh-bg dark:hover:text-mh-text';
 const linkIdle = `${linkIdleLight} ${linkIdleDark}`;
 
 const isHomePage = relativePath === '/';
-const homepageFooterClasses = isHomePage ? '' : 'border-t border-mh-muted/50 dark:border-mh-muted-dark/50';
 const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
 ---
 <!DOCTYPE html>
@@ -75,11 +74,11 @@ const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
       <div class="pointer-events-none fixed inset-0 -z-10 light-texture" aria-hidden="true"></div>
     )}
     <nav class="container mx-auto mb-8 px-4 flex flex-col gap-4 pb-4 pt-8 md:flex-row md:items-center md:justify-between">
-      <HeaderLogo url={buildUrl('/')} />
+      <div class="flex gap-8">
+        <HeaderLogo url={buildUrl('/')} />
+        <CandleThemeToggle client:load/>
+      </div>
       <ul class="flex flex-wrap items-center gap-3">
-        <div class="flex gap-3 mr-4">
-          <ThemeToggle client:load/>
-        </div>
         {navItems.map(({ href, label, match }) => {
           const active = match.some((route) => (route === '/' ? relativePath === '/' : relativePath.startsWith(route)));
           return (
@@ -97,7 +96,7 @@ const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
       <slot />
     </main>
 
-    <footer class={`${homepageFooterClasses} container mx-auto px-4 md:px-8 pb-12 pt-8 mt-12 text-sm`}>
+    <footer class="container mx-auto px-4 md:px-8 pb-12 pt-8 mt-12 text-sm">
       <p class="font-medium">
         Built with
         <svg

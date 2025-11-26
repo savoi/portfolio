@@ -26,12 +26,13 @@ const hasBanner = !!badgeText?.trim();
 const hasHeading = !!pageHeading?.trim();
 const hasSubheading = !!pageSubheading?.trim();
 const hasVisual = !!Astro.slots.has('visual');
+const hasOverlay = !!Astro.slots.has('overlay');
 ---
 <MainLayout title={title} description={description} page={page}>
   <section class="w-full pt-12">
     <div class="space-y-4">
       {hasBanner && (
-        <Badge title={badgeText} />
+        <Badge title={badgeText} style='hero'/>
       )}
       {hasHeading && (
         <h1 class="mx-8 text-4xl font-semibold leading-tight text-dark-text/90 dark:text-light-text sm:text-5xl">
@@ -44,14 +45,19 @@ const hasVisual = !!Astro.slots.has('visual');
         </p>
       )}
       {hasVisual && (
-        <div class="w-full h-[300px] mt-8 relative z-0">
+        <div class="w-full h-[400px] mt-8">
           <slot name="visual" />
+        </div>
+      )}
+      {hasOverlay && (
+        <div class="w-full mt-8">
+          <slot name="overlay" />
         </div>
       )}
     </div>
   </section>
 
-  <div class=`${containerClass} relative z-10 -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-40`>
+  <div class=`${containerClass}`>
     <slot name="page-content"/>
   </div>
 </MainLayout>

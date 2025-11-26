@@ -1,7 +1,11 @@
 {
-  "title": "Creative Coding Lab",
+  "title": "Crossword Puzzle Generator",
   "summary": "A collection of generative art sketches exploring shaders, perlin noise, and audio-reactive visuals.",
   "order": 2,
+  "thumb": {
+    "src": "src/assets/crossword.svg",
+    "alt": "Crossword Puzzle Generator Thumbnail"
+  },
   "tech": ["Canvas", "p5.js", "Web Audio"],
   "links": {
     "demo": "https://creative-coding.example.com",

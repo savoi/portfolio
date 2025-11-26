@@ -2,30 +2,9 @@
 import FullWidthHeroLayout from '../layouts/FullWidthHeroLayout.astro';
 import PortraitSketchSvg from '../assets/portrait-sketch.svg?raw';
 import Card from '../components/Card.astro';
-import ShaderWrapper from '../components/ShaderWrapper.tsx';
-
-const skills = [
-  { label: 'JavaScript', tone: 'primary' },
-  { label: 'TypeScript', tone: 'primary' },
-  { label: 'React', tone: 'primary' },
-  { label: 'Svelte', tone: 'primary' },
-  { label: 'Astro', tone: 'primary' },
-  { label: 'Node.js', tone: 'secondary' },
-  { label: 'GraphQL', tone: 'secondary' },
-  { label: 'Canvas API', tone: 'secondary' },
-  { label: 'Web Audio', tone: 'secondary' },
-  { label: 'GLSL', tone: 'secondary' },
-  { label: 'Figma', tone: 'tertiary' },
-  { label: 'Ableton Live', tone: 'tertiary' },
-  { label: 'p5.js', tone: 'tertiary' },
-  { label: 'D3.js', tone: 'tertiary' },
-];
-
-const toneClasses = {
-  primary: 'bg-[#588157]/25 font-semibold',
-  secondary: 'bg-[#3a5a40]/25',
-  tertiary: 'bg-[#a3b18a]/35',
-};
+import ShaderCardStage from '~/components/ShaderCardStage.astro';
+import FeaturedImageWithText from '~/components/FeaturedImageWithText.astro';
+import SkillsCard from '~/components/SkillsCard.astro';
 
 const interests = [
   { title: 'Generative Systems', description: 'Exploring procedural generation, noise functions, and emergent behaviors in code.' },
@@ -33,6 +12,43 @@ const interests = [
   { title: 'Ambient Computing', description: 'Designing interfaces that fade into the background while remaining deeply useful.' },
   { title: 'Creative Coding', description: 'Using programming as a medium for artistic expression and visual experimentation.' },
 ];
+
+const aboutMeCard = {
+  component: FeaturedImageWithText,
+  props: {
+    title: 'A bit about me',
+    image: new URL('/profile3.jpeg', Astro.url).href,
+    body: `I'm a developer who gets excited about the spaces where technology meets human creativity. Whether I'm crafting interactive
+    experiences, writing about process, or tinkering with generative systems, I'm always looking for ways to make the web more
+    delightful and meaningful.
+    When I'm not coding, you'll find me sketching in notebooks, collecting ambient soundscapes, or exploring how digital tools
+    can enhance rather than replace human expression. I believe the best interfaces feel like magic – effortless to use, but rich
+    with possibility underneath.
+    This portfolio is my digital workshop – a place to share experiments, document learning, and connect with fellow makers and
+    thinkers. Thanks for stopping by!`,
+  },
+};
+
+const skillsCard = {
+  component: SkillsCard,
+  props: {
+    title: 'Skills & Tools',
+    sections: [
+      {
+        heading: 'Languages & Frameworks',
+        skills: ['JavaScript', 'TypeScript', 'React', 'Svelte', 'Astro', 'Node.js', 'GraphQL'],
+      },
+      {
+        heading: 'Creative Tech',
+        skills: ['Canvas API', 'Web Audio', 'GLSL', 'p5.js', 'D3.js'],
+      },
+      {
+        heading: 'Design & Workflow',
+        skills: ['Figma', 'Ableton Live']
+      }
+    ],
+  },
+};
 ---
 <FullWidthHeroLayout
   title="About · Josh"
@@ -43,22 +59,23 @@ const interests = [
                   thoughtful code meets editorial storytelling and playful 
                   interaction design."`}
 >
-  <ShaderWrapper
-    slot="visual"
-    client:load
+  <ShaderCardStage
+    slot="overlay"
     shader="water"
-    quality='ultra'
-    props={{
+    shaderQuality='ultra'
+    maxWidthClass='max-w-4xl'
+    shaderProps={{
       image: new URL('/profile3.jpeg', Astro.url).href,
-      height: 200,
       edges: 1,
       waves: 1,
       caustic: 0.4,
       size: 0.15,
-      speed: 0.4,
+      speed: 0.2,
       scale: 3,
       fit: "cover"
     }}
+    cards={[aboutMeCard, skillsCard]}
+    columns={1}
   />
 
   <div slot="page-content">
@@ -98,16 +115,6 @@ const interests = [
     </Card>
 
     <section class="grid gap-8 pb-16 lg:grid-cols-2">
-    <Card class="space-y-5">
-      <h2 class="text-2xl font-semibold">Skills &amp; Tools</h2>
-      <div class="flex flex-wrap gap-2">
-        {skills.map((skill) => (
-          <span class={`inline-flex items-center rounded-full px-4 py-1 text-xs uppercase tracking-[0.3em] ${toneClasses[skill.tone]}`}>
-            {skill.label}
-          </span>
-        ))}
-      </div>
-    </Card>
     <div class="space-y-5">
       <h2 class="text-2xl font-semibold">Current Interests</h2>
       <div class="grid gap-4">

@@ -1,6 +1,8 @@
 ---
 import FullWidthHeroLayout from "../layouts/FullWidthHeroLayout.astro";
-import { SmokeRing } from '@paper-design/shaders-react';
+import Card from '../components/Card.astro';
+import ShaderWrapper from "~/components/ShaderWrapper";
+import ContactCard from "~/components/ContactCard.astro";
 
 ---
 <FullWidthHeroLayout
@@ -10,21 +12,28 @@ import { SmokeRing } from '@paper-design/shaders-react';
   pageHeading="I'd love to hear from you."
   pageSubheading="Whether you have a question, a project idea, or just want to chat, feel free to reach out!"
 >
-  <SmokeRing
+  <ShaderWrapper
     slot="visual"
     client:load
-    height={200}
-    colors={["#ffffff"]}
-    colorBack="#83afec"
-    noiseScale={3}
-    noiseIterations={8}
-    radius={0.5}
-    thickness={0.65}
-    innerShape={0.85}
-    speed={0.5}
-    scale={2.5}
+    shader="godRays"
+    quality='high'
+    slot="visual"
+    props={{
+      colors: ["#ffec70", "#f3bb77", "#d9ab9b", "#b09ca7"],
+      colorBack: "#0f091b",
+      colorBloom: "#d91212",
+      bloom: 1,
+      intensity: 0.5,
+      density: 0.3,
+      spotty: 0.5,
+      midSize: 0,
+      midIntensity: 0,
+      offsetX: 0,
+      offsetY: -0.7,
+      scale: 3
+    }}
   />
-  <section slot="page-content" class="space-y-6 pt-10">
+  <div slot="page-content" class="space-y-6 pt-10">
     <div class="max-w-3xl space-y-6 text-lg">
       <p>
         I'm always open to new opportunities and collaborations. Whether you're interested in working together, have a question about my work, or just want to say hello, feel free to reach out!
@@ -41,5 +50,14 @@ import { SmokeRing } from '@paper-design/shaders-react';
         <li><a href="https://github.com/josh" target="_blank" rel="noreferrer">GitHub</a></li>
       </ul>
     </div>
-  </section>
+    <ContactCard 
+      image="/me.jpg"
+      name="Josh Greenberg"
+      title="Web Developer"
+      email="hello@savoi.dev"
+      linkedin="https://linkedin.com/in/josh"
+      github="https://github.com/josh"
+      blurb="I build modern web experiences, AI-powered tools, and Shopify integrations."
+    />
+  </div>
 </FullWidthHeroLayout>

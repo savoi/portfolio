@@ -18,11 +18,15 @@ const {
   ...rest
 } = Astro.props as Props;
 
-const base = `flex flex-row ${rounded} ${padding}`;
-const palette = "bg-card text-card-foreground border border-card-border";
-const paletteDark = "dark:bg-card-dark dark:text-card-foreground-dark dark:border-card-border-dark";
+const base = `flex flex-col ${rounded} ${padding}`;
+const palette =
+  "bg-[var(--card-surface-gradient)] text-card-foreground border border-[var(--card-border)] shadow-[var(--card-shadow)]";
+const paletteDark =
+  "dark:bg-[var(--card-surface-gradient-dark)] dark:text-card-foreground-dark dark:border-[var(--card-border-dark)] dark:shadow-[var(--card-shadow-dark)]";
 
-const inter = interactive ? 'transition-transform duration-200 hover:-translate-y-0.5' : '';
+const inter = interactive
+  ? "transition-transform duration-200 hover:-translate-y-[3px] hover:border-[var(--card-hover-border)] hover:shadow-[var(--card-hover-shadow)] dark:hover:border-[var(--card-hover-border-dark)] dark:hover:shadow-[var(--card-hover-shadow-dark)]"
+  : '';
 const classes = [base, palette, paletteDark, inter, className].join(' ');
 const Tag = as as any;
 ---
@@ -31,5 +35,7 @@ const Tag = as as any;
   <div class="space-y-3">
     <slot />
   </div>
-  <slot name="footer" />
+  <div class="grow content-end mt-4">
+    <slot name="footer" />
+  </div>
 </Tag>

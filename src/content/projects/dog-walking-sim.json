@@ -2,6 +2,10 @@
   "title": "Dog Walking Simulator",
   "summary": "A humorous simulation game where players experience the joys and challenges of being a dog walker in a bustling city.",
   "order": 3,
+  "thumb": {
+    "src": "src/assets/shepherd.svg",
+    "alt": "Dog Walking Simulator Thumbnail"
+  },
   "tech": ["Unity", "C#", "Blender", "Photoshop"],
   "links": {
     "source": "https://github.com/savoi/dog-walking-sim"

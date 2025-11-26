@@ -2,9 +2,13 @@
   "title": "Astro Portfolio",
   "summary": "This site – a content-driven portfolio powered by Astro content collections, ready for GitHub Pages deployment.",
   "order": 1,
-  "tech": ["Astro", "TypeScript", "GitHub Pages"],
+  "thumb": {
+    "src": "src/assets/savoi-favicon.svg",
+    "alt": "savoi.dev portfolio logo"
+  },
+  "tech": ["Astro", "Tailwind CSS", "TypeScript", "Paper Shaders", "React"],
   "links": {
-    "demo": "https://YOUR_GITHUB_USERNAME.github.io/portfolio",
-    "source": "https://github.com/YOUR_GITHUB_USERNAME/portfolio"
+    "demo": "https://savoi.dev",
+    "source": "https://github.com/savoi/portfolio"
   }
 }

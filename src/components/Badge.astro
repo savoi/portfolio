@@ -1,18 +1,33 @@
 ---
 export interface Props {
+  class?: string;
   title?: string;
-  style?: 'hero' | 'card';
+  style?: 'hero' | 'card' | 'default';
 }
 
 const {
   title = '',
-  style = 'hero',
+  style = 'default',
+  class: className = '',
 } = Astro.props as Props;
 
-const baseClasses = "mx-8 inline-flex items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em]";
-const lightPaletteClasses = "bg-badge/90 text-badge-text shadow-lg/40";
-const darkPaletteClasses = "dark:bg-badge-dark/90 dark:text-badge-text-dark";
+// Default badge styles
+let baseClasses = "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold tracking-wide";
+let lightPaletteClasses = "";
+let darkPaletteClasses = "";
+
+if (style === 'hero') {
+  // Hero badge styles
+  baseClasses = "mx-8 inline-flex items-center rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em]";
+  lightPaletteClasses = "bg-badge/90 text-badge-text shadow-lg/40";
+  darkPaletteClasses = "dark:bg-badge-dark/90 dark:text-badge-text-dark";
+} else if (style === 'card') {
+  // Card badge styles
+  baseClasses = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium uppercase tracking-wide";
+  lightPaletteClasses = "bg-[#588157]/10 text-[#3a5a40] shadow-sm";
+  darkPaletteClasses = "dark:bg-[#3a5a40]/10 dark:text-[#a3b18a] dark:shadow-sm";
+}
 ---
-<span class=`${baseClasses} ${lightPaletteClasses} ${darkPaletteClasses}`>
+<span class=`${baseClasses} ${lightPaletteClasses} ${darkPaletteClasses} ${className}`>
   {title}
 </span>

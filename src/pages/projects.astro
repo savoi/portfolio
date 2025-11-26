@@ -1,17 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
 import FullWidthHeroLayout from '../layouts/FullWidthHeroLayout.astro';
-import Card from '../components/Card.astro';
-import ShaderWrapper from '../components/ShaderWrapper.tsx';
+import ShaderCardStage from '../components/ShaderCardStage.astro';
+import ProjectCard from '~/components/ProjectCard.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 
-const badgeClass =
-  'inline-flex items-center rounded-full bg-[#588157]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide';
-const primaryButton =
-  'inline-flex items-center gap-2 rounded-xl border border-[#588157]/60 bg-[#588157]/15 px-5 py-2.5 font-semibold shadow-sm transition hover:border-[#3a5a40] hover:bg-[#588157]/25';
-const secondaryButton =
-  'inline-flex items-center gap-2 rounded-xl border border-[#a3b18a]/60 bg-[#dad7cd]/80 px-5 py-2.5 font-medium shadow-sm transition hover:border-[#588157]/45 hover:bg-white';
+const projectCards = projects.map(({ id, data }) => ({
+  component: ProjectCard,
+  props: {
+    id,
+    title: data.title,
+    thumbnail: data.thumb?.src,
+    thumbnailAlt: data.thumb?.alt || `${data.title} thumbnail`,
+    description: data.summary,
+    techStack: data.tech,
+    liveLink: data.links.demo,
+    sourceLink: data.links.source,
+  },
+}));
 ---
 <FullWidthHeroLayout
   title="Projects · Josh"
@@ -20,48 +27,22 @@ const secondaryButton =
   pageHeading="Selected projects and experiments."
   pageSubheading="A living index of builds and experiments."
 >
-  <ShaderWrapper
-    slot="visual"
-    client:load
-    className="w-full h-full"
+  <ShaderCardStage 
+    slot="overlay"
     shader="warp"
-    props={{
-      colors: ["#121212", "#9470ff", "#121212", "#8838ff"],
-      proportion: 0.45,
+    shaderProps={{
+      colors: ["#898ba4", "#b09ca7", "#d9ab9b", "#f3bb77", "#ffec70"],
+      proportion: 0.5,
       softness: 1,
-      distortion: 0.25,
-      swirl: 0.8,
-      swirlIterations: 10,
+      distortion: 0.05,
+      swirl: 0.75,
+      swirlIterations: 6,
       shape: "checks",
       shapeScale: 0.1,
-      speed: 1,
+      speed: 10,
+      scale: 0.8,
+      rotation: 90
     }}
+    cards={projectCards}
   />
-  <section slot="page-content" class="space-y-6 pt-10">
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {projects.map(({ id, data }) => (
-        <Card as="article" id={id}>
-          <div class="space-y-2">
-            <h3 class="text-xl font-semibold">{data.title}</h3>
-            <p>{data.summary}</p>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            {data.tech.map((item) => (
-              <span class={badgeClass}>{item}</span>
-            ))}
-          </div>
-          {data.links.demo || data.links.source ? (
-            <div class="mt-3 flex flex-wrap gap-3">
-              {data.links.demo && (
-                <a class={primaryButton} href={data.links.demo} target="_blank" rel="noreferrer">Live demo</a>
-              )}
-              {data.links.source && (
-                <a class={secondaryButton} href={data.links.source} target="_blank" rel="noreferrer">Source</a>
-              )}
-            </div>
-          ) : null}
-        </Card>
-      ))}
-    </div>
-  </section>
 </FullWidthHeroLayout>

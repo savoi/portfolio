@@ -1,8 +1,10 @@
 import React from 'react';
 import { 
   ColorPanels,
+  GodRays,
   GrainGradient,
   Heatmap,
+  SmokeRing,
   Warp,
   Water
 } from '@paper-design/shaders-react';
@@ -26,8 +28,10 @@ type ShaderWrapperProps = {
 
 const ShaderMap: Record<string, AnyShader> = {
   colorPanels: ColorPanels,
+  godRays: GodRays,
   grainGradient: GrainGradient,
   heatmap: Heatmap,
+  smokeRing: SmokeRing,
   warp: Warp,
   water: Water,
   // add other shaders here as needed
