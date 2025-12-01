@@ -9,14 +9,14 @@ export default function ThemeToggle() {
     const next = stored || (prefers ? 'dark' : 'light');
     setIsDark(next === 'dark');
     document.documentElement.dataset.theme = next;
-    document.documentElement.classList.toggle('dark', next === 'dark');
+    //document.documentElement.classList.toggle('dark', next === 'dark');
   }, []);
 
   const toggle = () => {
     const next = isDark ? 'light' : 'dark';
     setIsDark(!isDark);
     document.documentElement.dataset.theme = next;
-    document.documentElement.classList.toggle('dark', next === 'dark');
+    //document.documentElement.classList.toggle('dark', next === 'dark');
     localStorage.setItem('theme', next);
   };
 
@@ -24,7 +24,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-pressed={isDark}
+      aria-pressed={isDark ? 'true' : 'false'}
       className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm
                  bg-[var(--color-mh-surface)] dark:bg-[var(--color-mh-surface-dark)]
                  text-[var(--color-mh-text)] dark:text-[var(--color-mh-text-dark)]

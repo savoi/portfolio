@@ -46,6 +46,7 @@ const artefacts = defineCollection({
     type: z.string(),
     year: z.number().optional(),
     link: z.string().url().optional(),
+    linkText: z.string().optional(),
   }),
 });
 

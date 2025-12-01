@@ -35,7 +35,7 @@ const gridCols =
     ? 'grid-cols-1 md:grid-cols-3'
     : 'grid-cols-1 md:grid-cols-2';
 ---
-<section class="relative w-full overflow-hidden bg-mh-bg" style={{ minHeight: height }}>
+<section class="relative w-full overflow-hidden bg-background" style={{ minHeight: height }}>
   <div class="absolute inset-0">
     <ShaderWrapper
       client:load
@@ -46,8 +46,8 @@ const gridCols =
     />
   </div>
 
-  <div class="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_30%,color-mix(in_oklch,var(--color-mh-bg)_45%,transparent)_0%,color-mix(in_oklch,var(--color-mh-bg)_0%,transparent)_70%)]" />
-  <div class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklch,var(--color-mh-bg)_54%,transparent)_0%,color-mix(in_oklch,var(--color-mh-bg)_26%,transparent)_60%,transparent_100%)]" />
+  <div class="absolute inset-0 dark:bg-[radial-gradient(120%_120%_at_50%_30%,color-mix(in_oklch,var(--color-background)_45%,transparent)_0%,color-mix(in_oklch,var(--color-background)_0%,transparent)_70%)]" />
+  <div class="absolute inset-0 dark:bg-[linear-gradient(180deg,color-mix(in_oklch,var(--color-background)_54%,transparent)_0%,color-mix(in_oklch,var(--color-background)_26%,transparent)_60%,transparent_100%)]" />
 
   <div class="relative z-10 mx-auto px-4 py-10 sm:px-6 lg:px-8">
     <div class={`mx-auto ${maxWidthClass}`}>

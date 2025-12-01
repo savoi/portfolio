@@ -1,9 +1,8 @@
 ---
 import '../styles/global.css';
 import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
-import HeaderLogo from '~/components/HeaderLogo.astro';
 import Favicons from '~/components/Favicons.astro';
-import CandleThemeToggle from '~/components/CandleThemeToggle';
+import NavBar from '~/components/NavBar.astro';
 
 const {
   title = 'Portfolio',
@@ -11,37 +10,11 @@ const {
   page = '',
 } = Astro.props;
 
-const navItems = [
-  { href: '/about', label: 'About', match: ['/about'] },
-  { href: '/projects', label: 'Projects', match: ['/projects'] },
-  { href: '/blog', label: 'Blog', match: ['/blog'] },
-  { href: '/artefacts', label: 'Artefacts', match: ['/artefacts'] },
-  { href: '/contact', label: 'Contact', match: ['/contact'] },
-];
-
 const currentPath = Astro.url.pathname || '/';
 const normalizedBase = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const basePath = normalizedBase.replace(/\/$/, '');
 const relativePath =
   basePath && currentPath.startsWith(basePath) ? currentPath.slice(basePath.length) || '/' : currentPath || '/';
-
-const buildUrl = (href) => {
-  if (href === '/') {
-    return normalizedBase;
-  }
-  return `${normalizedBase}${href.replace(/^\//, '')}`;
-};
-
-// Header navigation link styles
-const linkBase = 'rounded-sm px-3 py-2 text-2xl font-light transition-colors duration-200';
-
-const linkActiveLight = 'bg-mh-bg-dark text-mh-text-dark';
-const linkActiveDark = 'dark:bg-mh-bg dark:text-mh-text dark:hover:text-mh-muted';
-const linkActive = `${linkActiveLight} ${linkActiveDark}`;
-
-const linkIdleLight = 'hover:bg-mh-bg-dark hover:text-mh-text-dark';
-const linkIdleDark = 'dark:hover:bg-mh-bg dark:hover:text-mh-text';
-const linkIdle = `${linkIdleLight} ${linkIdleDark}`;
 
 const isHomePage = relativePath === '/';
 const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
@@ -61,10 +34,11 @@ const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
         const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = stored || (prefers ? 'dark' : 'light');
         document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle('dark', theme === 'dark');
       })();
     </script>
   </head>
-  <body class="relative flex min-h-screen flex-col bg-mh-bg text-mh-text dark:bg-mh-bg-dark dark:text-mh-text-dark">
+  <body class="relative flex min-h-screen flex-col bg-background text-text">
     {isHomePage && (
       <div class="pointer-events-none fixed inset-0 -z-10">
         <NeuroNoiseHero client:load />
@@ -73,24 +47,7 @@ const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
     {!isHomePage && (
       <div class="pointer-events-none fixed inset-0 -z-10 light-texture" aria-hidden="true"></div>
     )}
-    <nav class="container mx-auto mb-8 px-4 flex flex-col gap-4 pb-4 pt-8 md:flex-row md:items-center md:justify-between">
-      <div class="flex gap-8">
-        <HeaderLogo url={buildUrl('/')} />
-        <CandleThemeToggle client:load/>
-      </div>
-      <ul class="flex flex-wrap items-center gap-3">
-        {navItems.map(({ href, label, match }) => {
-          const active = match.some((route) => (route === '/' ? relativePath === '/' : relativePath.startsWith(route)));
-          return (
-            <li>
-              <a href={buildUrl(href)} class={`${linkBase} ${active ? linkActive : linkIdle}`}>
-                {label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <NavBar />
 
     <main class={`${homepageMainClasses} flex-1`}>
       <slot />

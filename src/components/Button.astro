@@ -1,0 +1,71 @@
+---
+export interface Props {
+  href?: string;
+  external?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+  disabled?: boolean;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  external = false,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  disabled = false,
+  class: className = '',
+  ariaLabel,
+} = Astro.props as Props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-accent-cool)] ring-offset-transparent disabled:opacity-60 disabled:pointer-events-none';
+
+const variants = {
+  primary:
+    'bg-text text-background hover:bg-[color-mix(in_oklch,var(--color-text)_86%,var(--color-accent-warm)_14%)]',
+  secondary:
+    'bg-[color-mix(in_oklch,var(--color-accent-soft)_82%,var(--color-background)_18%)] text-text hover:bg-[color-mix(in_oklch,var(--color-accent-soft)_70%,var(--color-background)_30%)]',
+  ghost:
+    'bg-transparent text-text hover:bg-[oklch(0%_0_0deg/6%)]',
+}[variant];
+
+const sizes = {
+  sm: 'text-sm px-3 py-1.5',
+  md: 'text-sm px-4 py-2',
+  lg: 'text-base px-5 py-2.5',
+}[size];
+
+const widthCls = fullWidth ? 'w-full' : '';
+const classes = [base, variants, sizes, widthCls, className].join(' ');
+---
+
+{href ? (
+  <a
+    href={href}
+    class={classes}
+    aria-label={ariaLabel}
+    target={external ? '_blank' : undefined}
+    rel={external ? 'noreferrer' : undefined}
+  >
+    <slot name="icon-left" />
+    <slot />
+    <slot name="icon-right" />
+  </a>
+) : (
+  <button
+    type={type}
+    class={classes}
+    aria-label={ariaLabel}
+    disabled={disabled}
+  >
+    <slot name="icon-left" />
+    <slot />
+    <slot name="icon-right" />
+  </button>
+)}

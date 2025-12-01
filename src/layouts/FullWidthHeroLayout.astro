@@ -35,12 +35,12 @@ const hasOverlay = !!Astro.slots.has('overlay');
         <Badge title={badgeText} style='hero'/>
       )}
       {hasHeading && (
-        <h1 class="mx-8 text-4xl font-semibold leading-tight text-dark-text/90 dark:text-light-text sm:text-5xl">
+        <h1 class="mx-8 text-4xl font-semibold leading-tight text-text/90 sm:text-5xl">
           {pageHeading}
         </h1>
       )}
       {hasSubheading && (
-        <p class="mx-8 max-w-3xl text-lg text-dark-text/80 dark:text-light-text/70">
+        <p class="mx-8 max-w-3xl text-lg text-text/80">
           {pageSubheading}
         </p>
       )}

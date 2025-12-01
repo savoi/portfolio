@@ -1,0 +1,43 @@
+---
+import Card from '~/components/Card.astro';
+import Badge from './Badge.astro';
+import Button from './Button.astro';
+
+export interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  publishDate: string;
+  tags: string[];
+  slug: string;
+}
+
+const {
+  id,
+  title,
+  description,
+  publishDate,
+  tags,
+  slug,
+} = Astro.props as Props;
+---
+<Card
+  as="article"
+  id={id}
+  interactive={true}
+  class="backdrop-blur-sm bg-[color-mix(in_oklch,var(--color-background)_82%,transparent)]"
+>
+  <div class="space-y-2">
+    <h3 class="text-xl font-semibold">{title}</h3>
+    <p>{description}</p>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    <Badge class="bg-background/30 mr-2 mb-2" title={new Date(publishDate).toLocaleDateString()} />
+    {tags.map((tag) => (
+      <Badge class="bg-background/30 mr-2 mb-2" title={`#${tag}`} />
+    ))}
+  </div>
+  <div slot="footer" class="mt-3 flex justify-end">
+    <Button href={`/blog/${slug}`} variant="primary">Read post</Button>
+  </div>
+</Card>

@@ -1,15 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
 import FullWidthHeroLayout from '../layouts/FullWidthHeroLayout.astro';
-import ShaderWrapper from '../components/ShaderWrapper.tsx';
-import Card from '../components/Card.astro';
+import ArtefactCard from '../components/ArtefactCard.astro';
+import ShaderCardStage from '~/components/ShaderCardStage.astro';
+import { paletteHex } from '~/lib/colors';
 
 const artefacts = (await getCollection('artefacts')).sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
 
-const badgeClass =
-  'inline-flex items-center rounded-full bg-green-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#344e41]';
-const secondaryButton =
-  'inline-flex items-center gap-2 rounded-xl border border-[#a3b18a]/60 bg-green-50 px-5 py-2.5 font-medium text-[#344e41] shadow-sm transition hover:border-[#588157]/45 hover:bg-white';
+const artefactCards = artefacts.map(({ id, data }) => ({
+  component: ArtefactCard,
+  props: {
+    id,
+    title: data.title,
+    summary: data.summary,
+    type: data.type,
+    year: data.year,
+    link: data.link,
+    linkText: data.linkText,
+  },
+}));
 ---
 <FullWidthHeroLayout
   title="Artefacts · Josh"
@@ -18,42 +27,20 @@ const secondaryButton =
   pageHeading="Side quests, notebooks, loops, and ephemera."
   pageSubheading="Explore the collection of artefacts I've collected over the years."
 >
-  <ShaderWrapper
-    slot="visual"
-    client:load
+  <ShaderCardStage 
+    slot="overlay"
     shader="grainGradient"
-    quality='ultra'
-    props={{
-      colors: ["#b09ca7", "#d9ab9b", "#f3bb77", "#ffec70"],
-      colorBack: "#1c1718",
-      softness: 0.85,
-      intensity: 0.9,
-      noise: 0.5,
-      shape: "dots",
-      speed: 0.4,
-      scale: 0.5,
-      rotation: 30
+    shaderProps={{
+      colors: [paletteHex.mhLilacAsh, paletteHex.mhPowderBlush, paletteHex.mhSunlitClay, paletteHex.mhBananaCream],
+      colorBack: paletteHex.mhLavenderGrey,
+      softness: 1,
+      intensity: 0.2,
+      noise: 0.2,
+      shape: "wave",
+      speed: 0.5,
+      scale: 0.8,
+      rotation: 15
     }}
+    cards={artefactCards}
   />
-  <section slot="page-content" class="space-y-6 pt-10">
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {artefacts.map(({ id, data }) => (
-        <Card as="article" id={id}>
-          <div class="space-y-2">
-            <h3 class="text-xl font-semibold text-green-50">{data.title}</h3>
-            <p class="text-green-50">{data.summary}</p>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <span class={badgeClass}>{data.type}</span>
-            {data.year && <span class={badgeClass}>{data.year}</span>}
-          </div>
-          {data.link && (
-            <div class="mt-3">
-              <a class={secondaryButton} href={data.link} target="_blank" rel="noreferrer">Open</a>
-            </div>
-          )}
-        </Card>
-      ))}
-    </div>
-  </section>
 </FullWidthHeroLayout>

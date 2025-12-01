@@ -7,41 +7,43 @@
   /* Fonts */
   --font-family-body: 'Inter', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', sans-serif;
 
-  /* LIGHT THEME (defaults) */
-  --color-mh-bg: oklch(98% 0.01 300deg);                /* Mist White */
-  --color-mh-surface: oklch(92% 0.01 300deg);           /* Lavender Gray */
-  --color-mh-soft: oklch(85% 0.03 300deg);              /* Cool Pearl */
-  --color-mh-text: oklch(20% 0.04 300deg);              /* Ink Graphite */
-  --color-mh-muted: oklch(40% 0.04 300deg);             /* Soft Graphite */
-  --color-mh-warm: oklch(80% 0.22 50deg);               /* Solar Orange */
-  --color-mh-soft-accent: oklch(78% 0.18 20deg);        /* Dusk Pink */
-  --color-mh-cool: oklch(75% 0.18 260deg);              /* Aurora Blue */
+  /* Theme palette */
+  --palette-mist-white: oklch(98% 0.01 300deg);
+  --palette-lavender-gray: oklch(92% 0.01 300deg);
+  --palette-cool-pearl: oklch(85% 0.03 300deg);
+  --palette-ink-graphite: oklch(20% 0.04 300deg);
+  --palette-soft-graphite: oklch(40% 0.04 300deg);
+  --palette-solar-orange: oklch(80% 0.22 50deg);
+  --palette-dusk-pink: oklch(78% 0.18 20deg);
+  --palette-aurora-blue: oklch(75% 0.18 260deg);
+  
+  /* Magic hour palette */
+  --palette-mh-banana-cream: oklch(93.25% 0.1461 100.32deg);
+  --palette-mh-sunlit-clay: oklch(83.07% 0.1055 71.02deg);
+  --palette-mh-powder-blush: oklch(77.9% 0.0583 38.83deg);
+  --palette-mh-lilac-ash: oklch(71.36% 0.028 343.55deg);
+  --palette-mh-lavender-grey: oklch(64.7% 0.0372 281.69deg);
+
+  /* Semantic tokens */
+  --color-background: var(--palette-mist-white);
+  --color-surface: var(--palette-lavender-gray);
+  --color-soft: var(--palette-cool-pearl);
+  --color-text: var(--palette-ink-graphite);
+  --color-muted: var(--palette-soft-graphite);
+  --color-accent-warm: var(--palette-solar-orange);
+  --color-accent-soft: var(--palette-dusk-pink);
+  --color-accent-cool: var(--palette-aurora-blue);
+
+  /* Component tokens */
   --button-primary-bg: oklch(80% 0.22 50deg);           /* mh-warm */
   --button-primary-text: var(--color-mh-bg);            /* Light text */
   --button-primary-hover-bg: oklch(82% 0.24 50deg);     /* Slightly brighter, more chroma */
   --button-primary-active-bg: oklch(78% 0.20 50deg);    /* Slightly darker */
   --button-primary-border: transparent;
   --button-primary-hover-border: oklch(80% 0.22 50deg / 40%); /* warm accent with alpha */
-  --color-badge: var(--color-mh-bg-dark);
-  --color-badge-text: var(--color-mh-text-dark);
-  --color-card: var(--color-mh-surface);
-  --color-card-foreground: var(--color-mh-text);
-  --color-card-border: oklch(0% 0 0deg / 8%);
-  --card-surface-strong: oklch(94% 0.02 300deg);
-  --card-surface-gradient: linear-gradient(
-    180deg,
-    var(--color-card) 0%,
-    var(--card-surface-strong) 100%
-  );
-  --card-border: color-mix(in oklch, var(--color-mh-text) 8%, transparent);
-  --card-shadow: 0 12px 30px oklch(0% 0 0deg / 7%), 0 3px 8px oklch(0% 0 0deg / 5%);
-  --card-hover-border: color-mix(in oklch, var(--color-mh-warm) 22%, transparent);
-  --card-hover-shadow: 0 18px 36px oklch(0% 0 0deg / 12%);
 
   /* DARK THEME TOKENS (used via `dark:`) */
-  --color-mh-bg-dark: oklch(16% 0.04 300deg);       /* Twilight Black */
   --color-mh-surface-dark: oklch(26% 0.05 300deg);  /* Moonlit Charcoal */
-  --color-mh-surface-dark: oklch(20% 0.03 265deg);
   --color-mh-soft-dark: oklch(36% 0.07 300deg);     /* Deep Violet Gray */
   --color-mh-text-dark: oklch(92% 0.01 300deg);     /* Fog White */
   --color-mh-muted-dark: oklch(78% 0.02 300deg);    /* Soft Fog */
@@ -69,6 +71,55 @@
   --link-fs: clamp(14px, 0.5vw + 12px, 18px);
   --link-px: clamp(6px, 1.2vw, 12px);
   --link-py: clamp(4px, 0.8vw, 8px);
+
+  /* Badges */
+  --color-badge-bg: var(--color-text);
+  --color-badge-text: var(--color-background);
+
+  /* Cards */
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-text);
+  --color-card-border: oklch(0% 0 0deg / 8%);
+  --card-surface-strong: oklch(94% 0.02 300deg);
+  --card-surface-gradient: linear-gradient(
+    180deg,
+    var(--color-card) 0%,
+    var(--card-surface-strong) 100%
+  );
+  --card-border: color-mix(in oklch, var(--color-text) 8%, transparent);
+  --card-shadow: 0 12px 30px oklch(0% 0 0deg / 7%), 0 3px 8px oklch(0% 0 0deg / 5%);
+  --card-hover-border: color-mix(in oklch, var(--color-accent-warm) 22%, transparent);
+  --card-hover-shadow: 0 18px 36px oklch(0% 0 0deg / 12%);
+
+  /* Navigation Bar */
+  --color-navbar-link-bg: var(--color-text);
+  --color-navbar-link-fg: var(--color-background);
+  --color-navbar-link-hover: var(--color-text);
+  --color-navbar-link-active: var(--color-text);
+}
+
+[data-theme='light'] {
+  /* Semantic light mode tokens */
+  --color-background: var(--palette-mist-white);
+  --color-surface: var(--palette-lavender-gray);
+  --color-soft: var(--palette-cool-pearl);
+  --color-text: var(--palette-ink-graphite);
+  --color-muted: var(--palette-soft-graphite);
+  --color-accent-warm: var(--palette-solar-orange);
+  --color-accent-soft: var(--palette-dusk-pink);
+  --color-accent-cool: var(--palette-aurora-blue);
+}
+
+[data-theme='dark'] {
+  /* Semantic dark mode tokens */
+  --color-background: var(--palette-ink-graphite);
+  --color-surface: var(--palette-lavender-gray);
+  --color-soft: var(--palette-cool-pearl);
+  --color-text: var(--palette-lavender-gray);
+  --color-muted: var(--palette-soft-graphite);
+  --color-accent-warm: var(--palette-solar-orange);
+  --color-accent-soft: var(--palette-dusk-pink);
+  --color-accent-cool: var(--palette-aurora-blue);
 }
 
 .header-logo svg {
@@ -190,31 +241,4 @@
   .candle-toggle[data-lit='true']:hover {
     cursor: pointer;
   }
-}
-
-/* Shader tapers (mask so textures show through) */
-.shader-taper-top {
-  background: transparent;
-  mask-image: linear-gradient(180deg, black 0%, black 65%, transparent 100%);
-  mask-mode: alpha;
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-  -webkit-mask-image: linear-gradient(180deg, black 0%, black 65%, transparent 100%);
-}
-
-.shader-taper-bottom {
-  background: transparent;
-  mask-image: linear-gradient(0deg, black 0%, black 65%, transparent 100%);
-  mask-mode: alpha;
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-  -webkit-mask-image: linear-gradient(0deg, black 0%, black 65%, transparent 100%);
-}
-
-.shader-fade-vertical {
-  mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
-  mask-mode: alpha;
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
 }
