@@ -26,11 +26,11 @@ const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
       })();
     </script>
   </head>
-  <body class="relative min-h-screen bg-mh-bg text-mh-text dark:bg-mh-bg-dark dark:text-mh-text-dark">
+  <body class="relative h-svh bg-background text-text">
     <div class="pointer-events-none fixed inset-0 -z-10">
       <NeuroNoiseHero client:load />
     </div>
-    <main class="flex flex-col gap-8 items-center justify-center min-h-screen">
+    <main class="flex flex-col gap-8 items-center justify-center h-svh">
       <div class="toggle-container flex items-center justify-center overflow-hidden">
         <DarkThemeToggle client:load />
     </div>
