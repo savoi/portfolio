@@ -1,0 +1,17 @@
+---
+import Card from './Card.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+}
+
+const {
+  title,
+  description,
+} = Astro.props as Props;
+---
+<Card blur={true}>
+  <h3 class="text-lg font-semibold">{title}</h3>
+  <p class="mt-2 text-sm">{description}</p>
+</Card>

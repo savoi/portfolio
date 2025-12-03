@@ -1,6 +1,6 @@
 ---
 import HeaderLogo from '~/components/HeaderLogo.astro';
-import CandleThemeToggle from '~/components/CandleThemeToggle';
+import DarkThemeToggle from '~/components/DarkThemeToggle';
 
 const navItems = [
   { href: '/about', label: 'About', match: ['/about'] },
@@ -28,12 +28,16 @@ const linkBase = 'rounded-sm px-3 py-2 text-2xl font-light transition-colors dur
 const linkActive = 'bg-navbar-link-active text-navbar-link-fg';
 const linkIdle = 'hover:bg-navbar-link-bg hover:text-navbar-link-fg';
 ---
-<nav class="container mx-auto mb-8 px-4 flex flex-col gap-4 pb-4 pt-8 md:flex-row md:items-center md:justify-between">
-  <div class="flex gap-8">
-    <HeaderLogo url={buildUrl('/')} />
-    <CandleThemeToggle client:load/>
+<nav class="container mx-auto mb-8 px-4 flex flex-col gap-4 pb-4 pt-8 md:flex-row md:items-start md:justify-between">
+  <div class="flex items-center gap-4">
+    <div class="mb-3">
+      <HeaderLogo url={buildUrl('/')} />
+    </div>
+    <div class="toggle-container flex items-center justify-center overflow-hidden">
+      <DarkThemeToggle client:load />
+    </div>
   </div>
-  <ul class="flex flex-wrap items-center gap-3">
+  <ul class="flex flex-wrap items-baseline gap-3 md:self-center">
     {navItems.map(({ href, label, match }) => {
       const active = match.some((route) => (route === '/' ? relativePath === '/' : relativePath.startsWith(route)));
       return (

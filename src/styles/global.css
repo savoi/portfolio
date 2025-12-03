@@ -160,85 +160,249 @@
 /* Hide texture in dark mode */
 [data-theme='dark'] .light-texture { opacity: 0; }
 
-/* Candle toggle base */
-.candle-toggle {
-  width: 50px;
-  height: 68px;
-  padding: 4px;
-  border-radius: 12px;
-  background: oklch(98% 0.01 300deg / 0%);
+/* ========================================
+   THEME TOGGLE (Orbital/Ellipse shape)
+   ======================================== */
+
+:root {
+  --orbital-rotation: 80deg;
+  --toggle-height: calc(var(--logo-w, 160px) * 0.8);
+  --toggle-width: calc(var(--logo-w, 160px) * 0.15);
+  --track-padding: 9px;
+  --toggle-animation-speed: 3000ms;
+}
+
+.theme-toggle {
+  --thumb-size: 20px;
+  
+  /* Orbital radius */
+  --orbit-rx: calc((var(--toggle-width) - var(--thumb-size)) / 2 + var(--track-padding));
+  --orbit-ry: calc((var(--toggle-height) - var(--thumb-size)) / 2 + var(--track-padding));
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   position: relative;
-  transition: background 160ms ease;
+  transform: rotate(var(--orbital-rotation));
 }
 
-.candle-toggle:focus-visible {
-  outline: 2px solid oklch(75% 0.18 260deg);
-  outline-offset: 2px;
+/* Container that reserves space for rotated toggle */
+.toggle-container {
+  width: calc(
+    var(--toggle-width) * cos(var(--orbital-rotation)) + 
+    var(--toggle-height) * sin(var(--orbital-rotation)) +
+    var(--track-padding) * 3
+  );
+  height: calc(
+    var(--toggle-width) * sin(var(--orbital-rotation)) + 
+    var(--toggle-height) * cos(var(--orbital-rotation)) +
+    var(--track-padding) * 2
+  );
+  flex-shrink: 0;
 }
 
-/* Candle image */
-.candle-img {
-  display: block;
-  width: 42px;
-  height: 60px;
-  object-fit: contain;
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-accent-cool);
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
-/* Flame overlay: centered above wick; tweak top to align with your PNG */
-.candle-flame-svg {
-  position: absolute;
-  width: 24px;
-  height: 28px;
-  left: 50%;
-  top: -10px; /* adjust as needed */
-  transform: translateX(-50%);
-  pointer-events: none;
+.theme-toggle:disabled {
+  cursor: not-allowed;
+}
+
+/* Track - Elliptical orbital ring, tilted via transform */
+.toggle-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: transparent;
+  
+  /* Orbital ring effect using borders */
+  border: 2px solid color-mix(in oklch, var(--color-text) 15%, transparent);
+  box-shadow:
+    inset 0 0 8px color-mix(in oklch, var(--color-text) 6%, transparent),
+    0 0 1px color-mix(in oklch, var(--color-text) 10%, transparent);
+  
+  transition:
+    border-color 320ms ease,
+    box-shadow 320ms ease;
   overflow: visible;
+}
+
+/* Orbital path indicator (dashed ring) */
+.toggle-track::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed color-mix(in oklch, var(--color-text) 12%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 280ms ease, border-color 280ms ease;
+}
+
+/* Dark mode track */
+.theme-toggle[data-lit='true'] .toggle-track {
+  border-color: color-mix(in oklch, var(--palette-aurora-blue) 28%, transparent);
+  box-shadow:
+    inset 0 0 12px color-mix(in oklch, var(--palette-aurora-blue) 10%, transparent),
+    0 0 16px color-mix(in oklch, var(--palette-aurora-blue) 15%, transparent);
+}
+
+.theme-toggle[data-lit='true'] .toggle-track::before {
+  border-color: color-mix(in oklch, var(--palette-aurora-blue) 18%, transparent);
+}
+
+/* Hover glow */
+.theme-toggle:hover .toggle-track {
+  box-shadow:
+    inset 0 0 10px color-mix(in oklch, var(--color-text) 8%, transparent),
+    0 0 12px color-mix(in oklch, var(--color-accent-warm) 20%, transparent);
+}
+
+.theme-toggle[data-lit='true']:hover .toggle-track {
+  box-shadow:
+    inset 0 0 14px color-mix(in oklch, var(--palette-aurora-blue) 14%, transparent),
+    0 0 20px color-mix(in oklch, var(--palette-aurora-blue) 25%, transparent);
+}
+
+/* Thumb - orbiting body (container only, no gradient here) */
+.toggle-thumb {
+  position: absolute;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 50%;
+  
+  offset-path: ellipse(var(--orbit-rx) var(--orbit-ry));
+  offset-rotate: 0deg;
+  transform: rotate(calc(-1 * var(--orbital-rotation)));
+  
+  /* Default state: at top (light mode) */
+  offset-distance: 0%;
+}
+
+/* Shared orb styles */
+.toggle-orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition: opacity calc(var(--toggle-animation-speed) * 0.3) ease;
+}
+
+/* Sun orb */
+.toggle-orb--sun {
+  background: radial-gradient(
+    circle at 35% 35%,
+    oklch(95% 0.02 50deg) 0%,
+    var(--palette-solar-orange) 40%,
+    var(--palette-mh-sunlit-clay) 100%
+  );
+  box-shadow:
+    0 0 8px color-mix(in oklch, var(--palette-solar-orange) 60%, transparent),
+    0 0 16px color-mix(in oklch, var(--palette-solar-orange) 30%, transparent),
+    inset 0 -2px 4px color-mix(in oklch, var(--palette-mh-sunlit-clay) 50%, transparent);
+  opacity: 1;
+}
+
+/* Moon orb */
+.toggle-orb--moon {
+  background: radial-gradient(
+    circle at 65% 65%,
+    oklch(85% 0.12 260deg) 0%,
+    var(--palette-aurora-blue) 40%,
+    var(--palette-mh-lavender-grey) 100%
+  );
+  box-shadow:
+    0 0 10px color-mix(in oklch, var(--palette-aurora-blue) 70%, transparent),
+    0 0 20px color-mix(in oklch, var(--palette-aurora-blue) 40%, transparent),
+    inset 0 2px 4px color-mix(in oklch, var(--palette-mh-lavender-grey) 40%, transparent);
   opacity: 0;
-  transition: opacity 160ms ease;
-  filter:
-    drop-shadow(0 0 8px oklch(80% 0.22 50deg / 0.45))
-    drop-shadow(0 6px 10px oklch(0% 0 0deg / 0.25));
 }
 
-/* Show/animate only when lit */
-.candle-toggle[data-lit='true'] .candle-flame-svg { opacity: 1; }
-
-.candle-flame-svg .flame { transform-origin: 50% 90%; }
-.candle-flame-svg .flame-outer { fill: oklch(80% 0.22 50deg); }
-.candle-flame-svg .flame-inner { fill: oklch(95% 0.02 85deg); }
-
-@keyframes flame-flicker {
-  0%, 100% { transform: translateY(0) scale(1); filter: brightness(1); }
-  45%      { transform: translateY(-1px) scale(1.05); filter: brightness(1.12); }
-  70%      { transform: translateY(-0.5px) scale(0.98); filter: brightness(0.98); }
+/* Dark mode: crossfade orbs */
+.theme-toggle[data-lit='true'] .toggle-orb--sun {
+  opacity: 0;
 }
 
-.candle-toggle[data-lit='true'] .candle-flame-svg .flame {
-  animation: flame-flicker 1.8s ease-in-out infinite;
+.theme-toggle[data-lit='true'] .toggle-orb--moon {
+  opacity: 1;
 }
 
+/* Thumb position in dark mode */
+.theme-toggle[data-lit='true'] .toggle-thumb {
+  offset-distance: 50%;
+}
+
+/* Orbital animation keyframes (offset-distance only, no color) */
+@keyframes orbit-to-dark {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 50%; }
+}
+
+@keyframes orbit-to-light {
+  0% { offset-distance: 50%; }
+  100% { offset-distance: 100%; }
+}
+
+/* Position animation classes */
+.theme-toggle[data-animating='to-dark'] .toggle-thumb {
+  animation: orbit-to-dark var(--toggle-animation-speed) ease forwards;
+}
+
+.theme-toggle[data-animating='to-light'] .toggle-thumb {
+  animation: orbit-to-light var(--toggle-animation-speed) ease forwards;
+}
+
+/* Orbital trail effect (optional decorative element) */
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    transparent 0deg,
+    color-mix(in oklch, var(--color-accent-warm) 8%, transparent) 90deg,
+    transparent 180deg,
+    color-mix(in oklch, var(--color-accent-cool) 8%, transparent) 270deg,
+    transparent 360deg
+  );
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity var(--toggle-animation-speed) ease;
+}
+
+.theme-toggle[data-lit='true'] .toggle-track::after {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in oklch, var(--palette-aurora-blue) 12%, transparent) 90deg,
+    transparent 180deg,
+    color-mix(in oklch, var(--palette-mh-lavender-grey) 10%, transparent) 270deg,
+    transparent 360deg
+  );
+}
+
+/* Hide trail on hover for cleaner look */
+.theme-toggle:hover .toggle-track::after {
+  opacity: 0.3;
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .candle-toggle[data-lit='true'] .candle-flame-svg .flame { animation: none; }
-}
-
-/* Hover glow only when lit */
-.candle-toggle[data-lit='true']:hover {
-  border-radius: 40%;
-  background: oklch(80% 0.22 50deg / 12%);
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36'><rect x='8' y='8' width='20' height='20' rx='4' fill='oklch(26% 0.05 300deg)' stroke='oklch(92% 0.01 300deg)' stroke-width='2'/><path d='M13 24h10' stroke='oklch(92% 0.01 300deg)' stroke-width='2' stroke-linecap='round'/></svg>") 6 6, pointer;
-
-}
-
-/* Custom cursors (SVG data URIs) */
-.candle-toggle[data-lit='false']:hover {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36'><path d='M5 31l6-14 4 4 4-10 4-4 4 8-6 7-2 9z' fill='oklch(40% 0.04 300deg)' stroke='oklch(80% 0.22 50deg)' stroke-width='2'/><circle cx='26' cy='8' r='5' fill='oklch(82% 0.24 50deg)'/></svg>") 6 6, pointer;
-}
-
-/* Fallback cursor on touch */
-@media (hover: none) {
-  .candle-toggle[data-lit='false']:hover,
-  .candle-toggle[data-lit='true']:hover {
-    cursor: pointer;
+  .toggle-thumb,
+  .toggle-track,
+  .toggle-track::before,
+  .toggle-track::after {
+    transition-duration: 0ms;
+    animation-duration: 0ms !important;
   }
 }

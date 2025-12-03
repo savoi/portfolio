@@ -2,6 +2,7 @@
 import Card from './Card.astro';
 
 export interface Props {
+  blur?: boolean;
   title: string;
   image: string;
   imageAlt?: string;
@@ -11,6 +12,7 @@ export interface Props {
 }
 
 const {
+  blur = false,
   title,
   image,
   imageAlt = title,
@@ -19,7 +21,7 @@ const {
   actions = []
 } = Astro.props as Props;
 ---
-<Card class="p-0 overflow-hidden">
+<Card class="p-0 overflow-hidden" blur={blur}>
   <div class="flex flex-col md:flex-row">
     <!-- Image -->
     <figure class="md:w-5/12 w-full aspect-[4/3] md:aspect-auto bg-mh-soft/40 flex items-center justify-center">
@@ -35,7 +37,7 @@ const {
     <!-- Text -->
     <div class="md:w-7/12 w-full p-6 md:p-8 flex flex-col gap-4">
       {eyebrow && (
-        <span class="text-xs font-semibold tracking-wider uppercase text-mh-muted">
+        <span class="text-xs font-semibold tracking-wider uppercase text-muted">
           {eyebrow}
         </span>
       )}

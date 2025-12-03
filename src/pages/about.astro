@@ -1,10 +1,9 @@
 ---
 import FullWidthHeroLayout from '../layouts/FullWidthHeroLayout.astro';
-import PortraitSketchSvg from '../assets/portrait-sketch.svg?raw';
-import Card from '../components/Card.astro';
 import ShaderCardStage from '~/components/ShaderCardStage.astro';
 import FeaturedImageWithText from '~/components/FeaturedImageWithText.astro';
 import SkillsCard from '~/components/SkillsCard.astro';
+import InterestsCard from '~/components/InterestsCard.astro';
 
 const interests = [
   { title: 'Generative Systems', description: 'Exploring procedural generation, noise functions, and emergent behaviors in code.' },
@@ -13,9 +12,18 @@ const interests = [
   { title: 'Creative Coding', description: 'Using programming as a medium for artistic expression and visual experimentation.' },
 ];
 
+const interestsCards = interests.map(({ title, description }) => ({
+  component: InterestsCard,
+  props: {
+    title,
+    description,
+  },
+}));
+
 const aboutMeCard = {
   component: FeaturedImageWithText,
   props: {
+    blur: true,
     title: 'A bit about me',
     image: new URL('/profile3.jpeg', Astro.url).href,
     body: `I'm a developer who gets excited about the spaces where technology meets human creativity. Whether I'm crafting interactive
@@ -59,11 +67,10 @@ const skillsCard = {
                   thoughtful code meets editorial storytelling and playful 
                   interaction design."`}
 >
-  <ShaderCardStage
+  <!-- <ShaderCardStage
     slot="overlay"
     shader="water"
     shaderQuality='ultra'
-    maxWidthClass='max-w-4xl'
     shaderProps={{
       image: new URL('/profile3.jpeg', Astro.url).href,
       edges: 1,
@@ -74,58 +81,26 @@ const skillsCard = {
       scale: 3,
       fit: "cover"
     }}
-    cards={[aboutMeCard, skillsCard]}
-    columns={1}
+    cards={[aboutMeCard, skillsCard, ...interestsCards]}
+    columns={2}
+  /> -->
+  <ShaderCardStage
+    slot="overlay"
+    shader="warp"
+    shaderProps={{
+      colors: ["#898ba4", "#b09ca7", "#d9ab9b", "#f3bb77", "#ffec70"],
+      proportion: 0.5,
+      softness: 1,
+      distortion: 0.05,
+      swirl: 0.75,
+      swirlIterations: 6,
+      shape: "checks",
+      shapeScale: 0.1,
+      speed: 10,
+      scale: 0.8,
+      rotation: 90
+    }}
+    cards={[aboutMeCard, skillsCard, ...interestsCards]}
+    columns={2}
   />
-
-  <div slot="page-content">
-    <Card
-    as="section"
-    interactive={false}
-  >
-    <figure class="flex items-start justify-centers mx-8">
-      <div
-        class="[&>svg]:w-[200px] [&>svg>]:auto [&_path]:fill-green-50"
-        set:html={PortraitSketchSvg}
-        role="img"
-        aria-label="A hand-drawn self-portrait sketch"
-      />
-    </figure>
-    <div class="space-y-5 overflow-hidden">
-      <div>
-        <h2 class="text-4xl font-semibold">A bit about me</h2>
-      </div>
-      <div class="space-y-4">
-        <p>
-          I'm a developer who gets excited about the spaces where technology meets human creativity. Whether I'm crafting interactive
-          experiences, writing about process, or tinkering with generative systems, I'm always looking for ways to make the web more
-          delightful and meaningful.
-        </p>
-        <p>
-          When I'm not coding, you'll find me sketching in notebooks, collecting ambient soundscapes, or exploring how digital tools
-          can enhance rather than replace human expression. I believe the best interfaces feel like magic – effortless to use, but rich
-          with possibility underneath.
-        </p>
-        <p>
-          This portfolio is my digital workshop – a place to share experiments, document learning, and connect with fellow makers and
-          thinkers. Thanks for stopping by!
-        </p>
-      </div>
-    </div>
-    </Card>
-
-    <section class="grid gap-8 pb-16 lg:grid-cols-2">
-    <div class="space-y-5">
-      <h2 class="text-2xl font-semibold">Current Interests</h2>
-      <div class="grid gap-4">
-        {interests.map(({ title, description }) => (
-          <Card>
-            <h3 class="text-lg font-semibold">{title}</h3>
-            <p class="mt-2 text-sm">{description}</p>
-          </Card>
-        ))}
-      </div>
-    </div>
-    </section>
-  </div>
 </FullWidthHeroLayout>

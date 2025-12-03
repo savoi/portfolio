@@ -3,6 +3,7 @@ export interface Props {
   as?: keyof HTMLElementTagNameMap | 'div';
   id?: string;
   interactive?: boolean;
+  blur?: boolean;
   padding?: string;   // e.g. 'p-7'
   rounded?: string;   // e.g. 'rounded-[2rem]'
   class?: string;
@@ -12,6 +13,7 @@ const {
   as = 'div',
   id,
   interactive = false,
+  blur = false,
   padding = 'p-5',
   rounded = 'rounded-lg',
   class: className = '',
@@ -27,7 +29,11 @@ const paletteDark =
 const inter = interactive
   ? "transition-transform duration-200 hover:-translate-y-[3px] hover:border-[var(--card-hover-border)] hover:shadow-[var(--card-hover-shadow)] dark:hover:border-[var(--card-hover-border-dark)] dark:hover:shadow-[var(--card-hover-shadow-dark)]"
   : '';
-const classes = [base, palette, paletteDark, inter, className].join(' ');
+
+const blurClass = blur
+  ? "backdrop-blur-sm bg-[color-mix(in_oklch,var(--color-background)_82%,transparent)]"
+  : '';
+const classes = [base, palette, paletteDark, inter, blurClass, className].join(' ');
 const Tag = as as any;
 ---
 <Tag id={id} class={classes} {...rest}>
