@@ -3,6 +3,8 @@ import '../styles/global.css';
 import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
 import HeaderLogo from '~/components/HeaderLogo.astro';
 import Favicons from '~/components/Favicons.astro';
+import DarkThemeToggle from '~/components/DarkThemeToggle';
+
 const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -28,8 +30,11 @@ const { title = 'savoi.dev', description = 'Coming soon.' } = Astro.props;
     <div class="pointer-events-none fixed inset-0 -z-10">
       <NeuroNoiseHero client:load />
     </div>
-    <main class="flex items-center justify-center min-h-screen">
-      <HeaderLogo url="#" width='clamp(200px, 25vw, 500px)' interactive={false} shadow={true} />
+    <main class="flex flex-col gap-8 items-center justify-center min-h-screen">
+      <div class="toggle-container flex items-center justify-center overflow-hidden">
+        <DarkThemeToggle client:load />
+    </div>
+    <HeaderLogo url="#" width='clamp(200px, 25vw, 500px)' shadow={true} />
     </main>
   </body>
 </html>

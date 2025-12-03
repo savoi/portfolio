@@ -297,18 +297,44 @@
   transition: opacity calc(var(--toggle-animation-speed) * 0.3) ease;
 }
 
+/* Grain overlay for orbs */
+.toggle-orb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 64px 64px;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Sun orb - warmer grain */
+.toggle-orb--sun::after {
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+}
+
+/* Moon orb - cooler, subtler grain */
+.toggle-orb--moon::after {
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
 /* Sun orb */
 .toggle-orb--sun {
   background: radial-gradient(
     circle at 35% 35%,
     oklch(95% 0.02 50deg) 0%,
-    var(--palette-solar-orange) 40%,
+    var(--palette-mh-banana-cream) 40%,
     var(--palette-mh-sunlit-clay) 100%
   );
   box-shadow:
-    0 0 8px color-mix(in oklch, var(--palette-solar-orange) 60%, transparent),
-    0 0 16px color-mix(in oklch, var(--palette-solar-orange) 30%, transparent),
-    inset 0 -2px 4px color-mix(in oklch, var(--palette-mh-sunlit-clay) 50%, transparent);
+    inset 0 -2px 4px color-mix(in oklch, var(--palette-mh-sunlit-clay) 50%, transparent),
+    0 0 8px color-mix(in oklch, var(--palette-mh-banana-cream) 80%, transparent),
+    0 0 16px color-mix(in oklch, var(--palette-mh-banana-cream) 30%, transparent),
+    0 0 24px color-mix(in oklch, var(--palette-solar-orange) 30%, transparent);
   opacity: 1;
 }
 

@@ -15,13 +15,10 @@ const {
   width = '200px',
 } = Astro.props;
 
-const logoClasses = [
-  `block w-[${width}] h-auto`,
-  'text-[var(--color-mh-text)]',
-  'dark:text-[var(--color-mh-text-dark)]',
-].join(' ');
+const logoClasses = `block w-[${width}] h-auto text-text`;
+
 const interactiveClasses = interactive
-  ? 'hover:text-[var(--color-mh-muted)] dark:hover:text-[var(--color-mh-muted-dark)] transition-colors duration-200 cursor-pointer'
+  ? 'hover:text-muted transition-colors duration-200 cursor-pointer'
   : 'pointer-events-none cursor-default';
 const shadowClass = shadow ? 'logo-shadow' : '';
 const widthCss = typeof width === 'number' ? `${width}px` : width;
