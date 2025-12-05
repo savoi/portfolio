@@ -65,6 +65,9 @@ export default function DarkThemeToggle() {
       disabled={!!animating}
     >
       <div className="toggle-track">
+        <div className="toggle-planet" aria-hidden="true">
+          <div className="toggle-planet-surface" />
+        </div>
         <div className="toggle-thumb">
           <div className="toggle-orb toggle-orb--sun" />
           <div className="toggle-orb toggle-orb--moon" />
