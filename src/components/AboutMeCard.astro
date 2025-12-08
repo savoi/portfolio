@@ -1,0 +1,70 @@
+---
+import Card from '~/components/Card.astro';
+import MagicHourImage from '~/assets/magic-hour.jpeg';
+
+export interface Props {
+  blur?: boolean;
+  title: string;
+  image: string;
+  imageAlt?: string;
+  eyebrow?: string;
+  body?: string;          // optional long text
+  actions?: { label: string; href: string; external?: boolean }[];
+}
+
+const {
+  blur = true,
+  title,
+  image,
+  imageAlt = title,
+  eyebrow,
+  body,
+  actions = []
+} = Astro.props as Props;
+---
+<Card
+  class="overflow-hidden"
+  blur={blur}
+  padding="p-0"
+  interactive={true}>
+  <div class="relative grid">
+    <!-- Image sets the container height -->
+    <img 
+      src={image} 
+      alt={imageAlt}
+      class="w-full h-auto object-cover col-start-1 row-start-1"
+    />
+    
+    <!-- Text overlay positioned on top -->
+    <div class="col-start-1 row-start-1 w-full p-6 md:p-8 flex flex-col gap-4 self-start">
+      {eyebrow && (
+        <span class="text-xs font-semibold tracking-wider uppercase text-muted">
+          {eyebrow}
+        </span>
+      )}
+      <h2 class="text-3xl font-semibold leading-tight text-white">
+        {title}
+      </h2>
+      {body && (
+        <p class="text-white/80 leading-relaxed text-base md:text-lg">
+          {body}
+        </p>
+      )}
+      <slot name="body" />
+      {actions.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-3">
+          {actions.map(a => (
+            <a
+              href={a.href}
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors"
+              target={a.external ? '_blank' : undefined}
+              rel={a.external ? 'noreferrer' : undefined}
+            >
+              {a.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</Card>

@@ -4,6 +4,7 @@ import ShaderCardStage from '~/components/ShaderCardStage.astro';
 import FeaturedImageWithText from '~/components/FeaturedImageWithText.astro';
 import SkillsCard from '~/components/SkillsCard.astro';
 import InterestsCard from '~/components/InterestsCard.astro';
+import AboutMeCard from '~/components/AboutMeCard.astro';
 
 const interests = [
   { title: 'Generative Systems', description: 'Exploring procedural generation, noise functions, and emergent behaviors in code.' },
@@ -21,7 +22,7 @@ const interestsCards = interests.map(({ title, description }) => ({
 }));
 
 const aboutMeCard = {
-  component: FeaturedImageWithText,
+  component: AboutMeCard,
   props: {
     blur: true,
     title: 'A bit about me',
@@ -31,9 +32,7 @@ const aboutMeCard = {
     delightful and meaningful.
     When I'm not coding, you'll find me sketching in notebooks, collecting ambient soundscapes, or exploring how digital tools
     can enhance rather than replace human expression. I believe the best interfaces feel like magic – effortless to use, but rich
-    with possibility underneath.
-    This portfolio is my digital workshop – a place to share experiments, document learning, and connect with fellow makers and
-    thinkers. Thanks for stopping by!`,
+    with possibility underneath.`,
   },
 };
 
@@ -101,6 +100,7 @@ const skillsCard = {
       rotation: 90
     }}
     cards={[aboutMeCard, skillsCard, ...interestsCards]}
-    columns={2}
+    columns={1}
+    maxWidthClass='w-1/2'
   />
 </FullWidthHeroLayout>

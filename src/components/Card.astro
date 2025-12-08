@@ -35,13 +35,17 @@ const blurClass = blur
   : '';
 const classes = [base, palette, paletteDark, inter, blurClass, className].join(' ');
 const Tag = as as any;
+
+const hasFooter = Astro.slots.has('footer');
 ---
 <Tag id={id} class={classes} {...rest}>
   <slot name="header" />
   <div class="space-y-3">
     <slot />
   </div>
-  <div class="grow content-end mt-4">
-    <slot name="footer" />
-  </div>
+  {hasFooter && (
+    <div class="grow content-end mt-4">
+      <slot name="footer" />
+    </div>
+  )}
 </Tag>

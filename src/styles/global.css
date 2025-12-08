@@ -170,7 +170,11 @@
   --toggle-width: calc(var(--logo-w, 160px) * 0.15);
   --track-padding: 9px;
   --toggle-animation-speed: 3000ms;
-  --color-orbital-dark: oklch(0.3696 0.0768 272.47);
+  --palette-orbital-dark: var(--color-muted);
+  --orbital-track-color-light: var(--palette-soft-graphite);
+  --palette-planet-dark-1: oklch(34% 0.07 300deg);
+  --palette-planet-dark-2: oklch(28% 0.05 300deg);
+  --palette-planet-dark-3: oklch(22% 0.04 300deg);
   --sun-offset-distance: 85%;
 }
 
@@ -227,7 +231,7 @@
   border-radius: 50%;
   background: transparent;
 
-  border: 1px solid oklch(from var(--color-text) calc(l + 0.2) c h);
+  border: 1px solid oklch(from var(--color-background) calc(l - 0.4) c h);
   box-shadow:
     inset 0 0 8px color-mix(in oklch, var(--color-text) 6%, transparent),
     0 0 1px color-mix(in oklch, var(--color-text) 10%, transparent);
@@ -244,7 +248,7 @@
   position: absolute;
   inset: -1px;
   border-radius: 50%;
-  border: 1px solid oklch(from var(--color-text) calc(l + 0.2) c h);
+  border: 1px solid oklch(from var(--color-background) calc(l - 0.4) c h);
   clip-path: inset(0 0 0 50%);
   z-index: 3;
   transition: border-color 320ms ease, box-shadow 320ms ease;
@@ -252,14 +256,14 @@
 
 /* Dark mode track */
 .theme-toggle[data-lit='true'] .toggle-track {
-  border-color: color-mix(in oklch, var(--color-text) 30%, var(--color-background));
+  border-color: var(--palette-orbital-dark);
   box-shadow:
     inset 0 0 12px color-mix(in oklch, var(--palette-aurora-blue) 10%, transparent),
     0 0 16px color-mix(in oklch, var(--palette-aurora-blue) 15%, transparent);
 }
 
 .theme-toggle[data-lit='true'] .toggle-track::after {
-  border-color: color-mix(in oklch, var(--color-text) 30%, var(--color-background));
+  border-color: var(--palette-orbital-dark);
 }
 
 /* Hover glow */
@@ -346,8 +350,8 @@
 .toggle-orb--moon {
   background: radial-gradient(
     circle at 65% 65%,
-    oklch(85% 0.12 260deg) 0%,
-    var(--palette-aurora-blue) 40%,
+    var(--palette-mist-white) 0%,
+    oklch(from var(--palette-mist-white) calc(l - 0.2) c h) 40%,
     var(--palette-mh-lavender-grey) 100%
   );
   box-shadow:
@@ -493,58 +497,18 @@
   pointer-events: none;
 }
 
-/* Atmosphere ring */
-.toggle-planet::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1px solid oklch(70% 0.08 200deg / 25%);
-  box-shadow:
-    inset 0 0 6px oklch(70% 0.10 200deg / 15%),
-    0 0 4px oklch(60% 0.08 200deg / 20%);
-  pointer-events: none;
-}
-
 /* Dark mode planet - cooler tones, subtle glow from moon */
 .theme-toggle[data-lit='true'] .toggle-planet {
   background: 
-    radial-gradient(
-      circle at 30% 30%,
-      oklch(50% 0.08 240deg) 0%,
-      oklch(35% 0.06 260deg) 40%,
-      oklch(25% 0.05 280deg) 100%
-    );
-  
+  radial-gradient(
+    circle at 30% 30%,
+    var(--palette-planet-dark-1) 0%,
+    var(--palette-planet-dark-2) 40%,
+    var(--palette-planet-dark-3) 100%
+  );
   box-shadow:
     inset -3px -3px 8px oklch(15% 0.04 280deg / 60%),
     inset 2px 2px 6px oklch(55% 0.06 240deg / 25%),
     0 0 10px oklch(60% 0.12 260deg / 25%),
     0 0 20px oklch(50% 0.10 260deg / 15%);
-}
-
-.theme-toggle[data-lit='true'] .toggle-planet-surface {
-  background:
-    radial-gradient(
-      ellipse 40% 30% at 25% 40%,
-      oklch(40% 0.08 200deg / 35%) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      ellipse 30% 45% at 70% 60%,
-      oklch(35% 0.06 220deg / 30%) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      ellipse 25% 20% at 55% 25%,
-      oklch(45% 0.05 180deg / 25%) 0%,
-      transparent 100%
-    );
-}
-
-.theme-toggle[data-lit='true'] .toggle-planet::before {
-  border-color: oklch(60% 0.10 260deg / 20%);
-  box-shadow:
-    inset 0 0 8px oklch(60% 0.12 260deg / 12%),
-    0 0 6px oklch(55% 0.10 260deg / 18%);
 }
