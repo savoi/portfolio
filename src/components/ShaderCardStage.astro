@@ -1,5 +1,6 @@
 ---
 import ShaderWrapper from './ShaderWrapper';
+import Footer from './Footer.astro';
 
 type CardEntry = {
   component: any;          // Astro/React/Svelte component
@@ -35,8 +36,8 @@ const gridCols =
     ? 'grid-cols-1 md:grid-cols-3'
     : 'grid-cols-1 md:grid-cols-2';
 ---
-<section class="relative w-full overflow-hidden bg-background" style={{ minHeight: height }}>
-  <div class="absolute inset-0">
+<section class="relative w-full pt-16 overflow-hidden bg-background" style={{ minHeight: height }}>
+  <div class="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%,black_100%)]">
     <ShaderWrapper
       client:load
       shader={shader}
@@ -45,6 +46,8 @@ const gridCols =
       props={shaderProps}
     />
   </div>
+
+  <div class="absolute inset-x-0 top-0 h-36 bg-linear-to-b/oklch from-background to-transparent" />
 
   <div class="absolute inset-0 dark:bg-[radial-gradient(120%_120%_at_50%_30%,color-mix(in_oklch,var(--color-background)_45%,transparent)_0%,color-mix(in_oklch,var(--color-background)_0%,transparent)_70%)]" />
   <div class="absolute inset-0 dark:bg-[linear-gradient(180deg,color-mix(in_oklch,var(--color-background)_54%,transparent)_0%,color-mix(in_oklch,var(--color-background)_26%,transparent)_60%,transparent_100%)]" />
@@ -65,5 +68,8 @@ const gridCols =
         }
       </div>
     </div>
+  </div>
+  <div class="relative z-10">
+    <Footer />
   </div>
 </section>

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import NeuroNoiseHero from '../components/NeuroNoiseHero.tsx';
 import Favicons from '~/components/Favicons.astro';
 import NavBar from '~/components/NavBar.astro';
+import Footer from '~/components/Footer.astro';
 
 const {
   title = 'Portfolio',
@@ -53,28 +54,8 @@ const homepageMainClasses = isHomePage ? 'flex flex-col justify-center' : '';
       <slot />
     </main>
 
-    <footer class="container mx-auto px-4 md:px-8 pb-12 pt-8 mt-12 text-sm">
-      <p class="font-medium">
-        Built with
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          class="inline mb-0.5 h-4 w-4 hover:animate-pulse hover:text-red-500"
-          fill="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 20s-6.2-4.7-8.3-8.3C1.6 9.5 2 6.3 4.3 4.7a5 5 0 0 1 6.2.4L12 7l1.5-1.9a5 5 0 0 1 6.2-.4c2.3 1.6 2.7 4.8.3 7C18.2 15.3 12 20 12 20z" />
-        </svg>
-        <span class="sr-only">love</span>
-        in Winnipeg, Canada using 
-        <a href="https://astro.build" target="_blank" rel="noreferrer">Astro</a> / 
-        <a href="https://tailwindcss.com" target="_blank" rel="noreferrer">Tailwind</a> / 
-        <a href="https://shaders.paper.design" target="_blank" rel="noreferrer">Paper Shaders</a>.
-      </p>
-      <p class="mt-2">
-        © {new Date().getFullYear()} Josh Greenberg. All rights reserved.
-      </p>
-    </footer>
+    {isHomePage && (
+      <Footer />
+    )}
   </body>
 </html>

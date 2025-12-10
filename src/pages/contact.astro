@@ -1,8 +1,18 @@
 ---
 import FullWidthHeroLayout from "../layouts/FullWidthHeroLayout.astro";
-import Card from '../components/Card.astro';
-import ShaderWrapper from "~/components/ShaderWrapper";
 import ContactCard from "~/components/ContactCard.astro";
+import ShaderCardStage from "~/components/ShaderCardStage.astro";
+
+const contactCard = {
+  component: ContactCard,
+  props: {
+    blur: true,
+    image: '/me.jpg',
+    name: 'Josh Greenberg',
+    title: 'Full-Stack Software Engineer',
+    email: 'josh@savoi.dev'
+  },
+}
 
 ---
 <FullWidthHeroLayout
@@ -12,13 +22,12 @@ import ContactCard from "~/components/ContactCard.astro";
   pageHeading="I'd love to hear from you."
   pageSubheading="Whether you have a question, a project idea, or just want to chat, feel free to reach out!"
 >
-  <ShaderWrapper
-    slot="visual"
-    client:load
+  <ShaderCardStage
+    slot="overlay"
     shader="godRays"
-    quality='high'
-    slot="visual"
-    props={{
+    shaderQuality='high'
+    columns={1}
+    shaderProps={{
       colors: ["#ffec70", "#f3bb77", "#d9ab9b", "#b09ca7"],
       colorBack: "#0f091b",
       colorBloom: "#d91212",
@@ -32,32 +41,6 @@ import ContactCard from "~/components/ContactCard.astro";
       offsetY: -0.7,
       scale: 3
     }}
+    cards={[contactCard]}
   />
-  <div slot="page-content" class="space-y-6 pt-10">
-    <div class="max-w-3xl space-y-6 text-lg">
-      <p>
-        I'm always open to new opportunities and collaborations. Whether you're interested in working together, have a question about my work, or just want to say hello, feel free to reach out!
-      </p>
-      <p>
-        You can contact me via email at <a href="mailto:josh@example.com">josh@example.com</a>.
-      </p>
-      <p>
-        Alternatively, you can connect with me on social media:
-      </p>
-      <ul class="list-disc list-inside space-y-2">
-        <li><a href="https://twitter.com/josh" target="_blank" rel="noreferrer">Twitter</a></li>
-        <li><a href="https://linkedin.com/in/josh" target="_blank" rel="noreferrer">LinkedIn</a></li>
-        <li><a href="https://github.com/josh" target="_blank" rel="noreferrer">GitHub</a></li>
-      </ul>
-    </div>
-    <ContactCard 
-      image="/me.jpg"
-      name="Josh Greenberg"
-      title="Web Developer"
-      email="hello@savoi.dev"
-      linkedin="https://linkedin.com/in/josh"
-      github="https://github.com/josh"
-      blurb="I build modern web experiences, AI-powered tools, and Shopify integrations."
-    />
-  </div>
 </FullWidthHeroLayout>
