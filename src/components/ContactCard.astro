@@ -1,5 +1,9 @@
 ---
 import Card from "./Card.astro";
+import EnvelopeIcon from "~/assets/icon-envelope.svg";
+import GitHubIcon from "~/assets/icon-github.svg";
+import LinkedInIcon from "~/assets/icon-linkedin.svg";
+import ProfilePicture from "~/assets/profile-card.jpeg";
 
 export interface Props {
   blur?: boolean;
@@ -14,63 +18,61 @@ export interface Props {
 
 const {
   blur = true,
-  image = "/me.jpg",
+  image = "",
   name = "Josh Greenberg",
-  title = "Web Developer",
-  email = "hello@savoi.dev",
-  linkedin = "https://linkedin.com/in/yourprofile",
-  github = "https://github.com/yourgithub",
+  title = "Full-Stack Software Engineer",
+  email = "josh@savoi.dev",
+  linkedin = "https://linkedin.com/in/jc-greenberg",
+  github = "https://github.com/savoi",
   blurb = "I build modern web experiences, AI-powered tools, and Shopify integrations."
 } = Astro.props;
 ---
 
 <Card blur={blur}>
   <div class="flex flex-col items-center text-center gap-4">
+    
     <!-- Avatar -->
     <img 
-      src={image} 
+      src={image || ProfilePicture.src} 
       alt={name} 
       class="w-32 h-32 rounded-full object-cover border border-neutral-700 shadow-md"
     />
 
     <!-- Name + Title -->
     <div>
-      <h2 class="text-xl font-semibold tracking-tight">{name}</h2>
-      <p class="text-neutral-400 text-sm">{title}</p>
+      <h2 class="text-2xl font-semibold">{name}</h2>
+      <p class="text-text/70 text-md">{title}</p>
     </div>
 
     <!-- Contact Links -->
     <div class="flex items-center gap-3 mt-2">
+      <!-- Email -->
       <a 
         href={`mailto:${email}`} 
-        class="text-neutral-300 hover:text-white transition-colors"
+        class="text-text hover:text-white transition-colors"
         aria-label="Email"
       >
-        <!-- Email icon -->
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5H4.5a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.93l-6.75 4.05a2.25 2.25 0 01-2.28 0L3.82 8.923a2.25 2.25 0 01-1.07-1.93V6.75" />
-        </svg>
+        <EnvelopeIcon class="size-10" />
       </a>
 
+      <!-- LinkedIn -->
       <a 
         href={linkedin} 
-        class="text-neutral-300 hover:text-white transition-colors"
+        class="text-text hover:text-white transition-colors"
         aria-label="LinkedIn"
+        target="_blank"
       >
-        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19 0h-14c-2.761...Z" />
-        </svg>
+        <LinkedInIcon class="size-10" />
       </a>
 
+      <!-- GitHub -->
       <a 
         href={github} 
-        class="text-neutral-300 hover:text-white transition-colors"
+        class="text-text hover:text-white transition-colors"
         aria-label="GitHub"
+        target="_blank"
       >
-        <!-- GitHub icon -->
-        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 .297a12...Z" />
-        </svg>
+        <GitHubIcon class="size-10" />
       </a>
     </div>
 

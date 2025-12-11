@@ -7,7 +7,6 @@ const contactCard = {
   component: ContactCard,
   props: {
     blur: true,
-    image: '/me.jpg',
     name: 'Josh Greenberg',
     title: 'Full-Stack Software Engineer',
     email: 'josh@savoi.dev'
@@ -27,6 +26,7 @@ const contactCard = {
     shader="godRays"
     shaderQuality='high'
     columns={1}
+    maxWidthClass="max-w-lg"
     shaderProps={{
       colors: ["#ffec70", "#f3bb77", "#d9ab9b", "#b09ca7"],
       colorBack: "#0f091b",
