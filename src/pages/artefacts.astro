@@ -30,6 +30,8 @@ const artefactCards = artefacts.map(({ id, data }) => ({
   <ShaderCardStage 
     slot="overlay"
     shader="grainGradient"
+    speed={2}
+    speedDark={1}
     shaderProps={{
       colors: [paletteHex.mhLilacAsh, paletteHex.mhPowderBlush, paletteHex.mhSunlitClay, paletteHex.mhBananaCream],
       colorBack: paletteHex.mhLavenderGrey,
@@ -37,7 +39,6 @@ const artefactCards = artefacts.map(({ id, data }) => ({
       intensity: 0.2,
       noise: 0.2,
       shape: "wave",
-      speed: 0.5,
       scale: 0.8,
       rotation: 15
     }}

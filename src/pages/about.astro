@@ -86,6 +86,8 @@ const skillsCard = {
   <ShaderCardStage
     slot="overlay"
     shader="warp"
+    speed={10}
+    speedDark={5}
     shaderProps={{
       colors: ["#898ba4", "#b09ca7", "#d9ab9b", "#f3bb77", "#ffec70"],
       proportion: 0.5,
@@ -95,7 +97,6 @@ const skillsCard = {
       swirlIterations: 6,
       shape: "checks",
       shapeScale: 0.1,
-      speed: 10,
       scale: 0.8,
       rotation: 90
     }}

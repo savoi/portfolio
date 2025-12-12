@@ -17,7 +17,8 @@ type ShaderWrapperProps = {
   height?: number | string;
   width?: number | string;
   speed?: number;
-  maxPixelCap?: number;          // rename from maxPixelCount for clarity
+  speedDark?: number;
+  maxPixelCap?: number;
   divisor?: number;
   minPixels?: number;
   dprCap?: number;
@@ -37,10 +38,19 @@ const ShaderMap: Record<string, AnyShader> = {
   // add other shaders here as needed
 };
 
+function isDarkTheme(): boolean {
+  if (typeof document === 'undefined') return false;
+  const el = document.documentElement;
+  if (el.classList.contains('dark')) return true;
+  if (el.dataset.theme) return el.dataset.theme === 'dark';
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+}
+
 export default function ShaderWrapper({
   shader = 'warp',
   className = 'w-full h-full',
   speed = 0.5,
+  speedDark,
   maxPixelCap = 1_500_000,
   divisor = 16,
   minPixels = 80_000,
@@ -51,6 +61,38 @@ export default function ShaderWrapper({
 }: ShaderWrapperProps) {
   const [reducedMotion, setReducedMotion] = React.useState(false);
   const [maxPixels, setMaxPixels] = React.useState(minPixels);
+  const [isDark, setIsDark] = React.useState(false);
+
+  // Watch for light/dark theme changes
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const update = () => setIsDark(isDarkTheme());
+    update(); // Initial sync
+
+    // Observe changes to data-theme or class
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'class'],
+    });
+
+    // Listen for system preference changes
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener?.('change', update);
+
+    // Listen for cross-tab storage changes
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'theme') update();
+    };
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      observer.disconnect();
+      mq.removeEventListener?.('change', update);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, []);
 
   // Watch for changes in user motion settings if requested
   React.useEffect(() => {
@@ -101,17 +143,27 @@ export default function ShaderWrapper({
     );
   }, [divisor, minPixels, maxPixelCap, dprCap, quality, fidelityBoost]);
 
+  // Determine effective speed based on theme
+  const effectiveSpeed = React.useMemo(() => {
+    if (reducedMotion) return 0;
+    
+    if (speedDark !== undefined) {
+      return isDark ? speedDark : speed;
+    }
+    return speed;
+  }, [reducedMotion, isDark, speed, speedDark]);
+
   // Merge user props with computed controls
   const shaderProps: Record<string, any> = {
     ...props,
     maxPixelCount: maxPixels,
-    speed: reducedMotion ? 0 : (props.speed ?? speed),
+    speed: effectiveSpeed,
     className: [props.className, className].filter(Boolean).join(' '),
   };
 
   const ShaderType = ShaderMap[shader];
 
-  console.log(`ShaderWrapper: rendering shader="${shader}" with maxPixels=${maxPixels}, reducedMotion=${reducedMotion}`);
+  console.log(`ShaderWrapper: rendering shader="${shader}" with maxPixels=${maxPixels}, reducedMotion=${reducedMotion}, speed=${effectiveSpeed}`);
   console.log('Shader props:', shaderProps);
 
   return <ShaderType {...shaderProps} />;

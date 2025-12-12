@@ -13,6 +13,8 @@ export interface Props {
   shader?: string;
   shaderQuality?: 'low' | 'medium' | 'high' | 'ultra';
   shaderProps?: Record<string, any>;
+  speed?: number;
+  speedDark?: number;
   cards?: CardEntry[];
   height?: string;
   maxWidthClass?: string;
@@ -23,6 +25,8 @@ const {
   shader = 'warp',
   shaderQuality = 'high',
   shaderProps = {},
+  speed,
+  speedDark,
   cards = [],
   height = '520px',
   maxWidthClass = 'max-w-6xl',
@@ -42,6 +46,8 @@ const gridCols =
       client:load
       shader={shader}
       quality={shaderQuality}
+      speed={speed}
+      speedDark={speedDark}
       className="w-full h-full"
       props={shaderProps}
     />

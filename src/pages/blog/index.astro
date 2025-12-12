@@ -31,6 +31,8 @@ const blogPostCards = posts.map(({ id, data, slug }) => ({
     slot="overlay"
     shader="colorPanels"
     shaderQuality="high"
+    speed={1}
+    speedDark={0.5}
     columns={3}
     shaderProps={{
       colors: ["#FFEB6E", "#F3BC79", "#D9AB9B", "#B09CA7"],
@@ -44,7 +46,6 @@ const blogPostCards = posts.map(({ id, data, slug }) => ({
       fadeIn: 0.4,
       fadeOut: 0.8,
       gradient: 0.5,
-      speed: 1,
       scale: 1.5,
       offsetY: 0,
       rotation: 350,
