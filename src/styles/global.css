@@ -157,6 +157,11 @@
   transition: opacity 200ms ease;
 }
 
+.gradient-fade-top {
+  background-image:
+    linear-gradient(to bottom, var(--color-background) 0%, transparent 100%);
+}
+
 /* Hide texture in dark mode */
 [data-theme='dark'] .light-texture { opacity: 0; }
 

@@ -40,8 +40,8 @@ const gridCols =
     ? 'grid-cols-1 md:grid-cols-3'
     : 'grid-cols-1 md:grid-cols-2';
 ---
-<section class="relative w-full pt-16 overflow-hidden bg-background" style={{ minHeight: height }}>
-  <div class="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%,black_100%)]">
+<section class="relative w-full overflow-hidden" style={{ minHeight: height }}>
+  <div class="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0%,oklch(0%_0_0/0.4)_10%,oklch(0%_0_0/0.65)_15%,oklch(0%_0_0/0.8)_20%,oklch(0%_0_0/0.9)_25%,oklch(0%_0_0/0.96)_30%,black_40%)]">
     <ShaderWrapper
       client:load
       shader={shader}
@@ -53,8 +53,10 @@ const gridCols =
     />
   </div>
 
-  <div class="absolute inset-x-0 top-0 h-36 bg-linear-to-b/oklch from-background to-transparent" />
+  <!-- Top gradient overlay -->
+  <div class="absolute inset-x-0 top-0 h-24 gradient-fade-top hidden dark:block" />
 
+  <!-- Dark theme overlays -->
   <div class="absolute inset-0 dark:bg-[radial-gradient(120%_120%_at_50%_30%,color-mix(in_oklch,var(--color-background)_45%,transparent)_0%,color-mix(in_oklch,var(--color-background)_0%,transparent)_70%)]" />
   <div class="absolute inset-0 dark:bg-[linear-gradient(180deg,color-mix(in_oklch,var(--color-background)_54%,transparent)_0%,color-mix(in_oklch,var(--color-background)_26%,transparent)_60%,transparent_100%)]" />
 
